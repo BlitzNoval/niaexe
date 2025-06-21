@@ -9,7 +9,7 @@ const projects = [
 		id: 1,
 		title: 'People Solutions Hub',
 		description: 'Professional HR company website with modern design and comprehensive functionality',
-		image: '/people-solutions-hub.jpg',
+		image: '/code.jpg',
 		link: 'https://peoplesolutionshub.com.au/',
 		type: 'Business Website',
 		tech: 'WordPress, Custom CSS'
@@ -18,7 +18,7 @@ const projects = [
 		id: 2,
 		title: 'Fractional Agency',
 		description: 'Marketing company platform showcasing fractional marketing services',
-		image: '/fractional-agency.jpg',
+		image: '/laptop.jpg',
 		link: 'https://www.fractionalagency.co.za/',
 		type: 'Marketing Platform',
 		tech: 'Next.js, React'
@@ -27,7 +27,7 @@ const projects = [
 		id: 3,
 		title: 'Africa Matters Initiative',
 		description: 'NGO platform promoting African development and community initiatives',
-		image: '/africa-matters.jpg',
+		image: '/code.jpg',
 		link: 'https://www.fractionalagency.co.za/',
 		type: 'NGO Website',
 		tech: 'WordPress, SEO'
@@ -36,7 +36,7 @@ const projects = [
 		id: 4,
 		title: 'CROW Animal Rehabilitation',
 		description: 'Wildlife rehabilitation center with donation and volunteer management',
-		image: '/crow.jpg',
+		image: '/laptop.jpg',
 		link: 'https://crowkzn.co.za/',
 		type: 'Non-Profit',
 		tech: 'WordPress, UI/UX'
@@ -45,7 +45,7 @@ const projects = [
 		id: 5,
 		title: 'University Portfolio Work',
 		description: 'Collection of academic projects showcasing web development and design skills',
-		image: '/university-work.jpg',
+		image: '/code.jpg',
 		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1',
 		type: 'Academic Portfolio',
 		tech: 'Wix, JavaScript, CSS'
