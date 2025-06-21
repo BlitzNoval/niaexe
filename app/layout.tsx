@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: '[Your Name] - Software Developer',
+	title: 'Liam Moodley - Frontend & Backend Developer | UI/UX Designer',
 	description:
-		'Welcome to my portfolio! I am a passionate software developer with a focus on clean, minimal, and effective solutions. I believe in the power of simplicity and thoughtful design to create impactful digital experiences.',
+		'Frontend & Backend Developer and UI/UX Designer from Johannesburg, South Africa. Specializing in CSS, JavaScript, Next.js, D3.js, Node.js, SEO, WordPress, and UI/UX design. Creating clean, minimal, and effective digital solutions.',
 	keywords: [
 		'Software Developer',
 		'Clean Code',
@@ -31,21 +31,21 @@ export const metadata: Metadata = {
 		'Performance',
 		'Accessibility',
 		'Minimalist Portfolio',
-		'[Your Name]',
+		'Liam Moodley',
 	],
-	authors: [{ name: '[Your Name]' }],
-	creator: '[Your Name]',
+	authors: [{ name: 'Liam Moodley' }],
+	creator: 'Liam Moodley',
 	openGraph: {
-		title: '[Your Name] - Software Developer Portfolio',
-		description: 'Passionate software developer creating clean, minimal, and effective digital solutions. Explore my work and development philosophy.',
-		url: 'https://your-domain.com',
-		siteName: '[Your Name] - Portfolio',
+		title: 'Liam Moodley - Frontend & Backend Developer | UI/UX Designer Portfolio',
+		description: 'Frontend & Backend Developer and UI/UX Designer from Johannesburg, South Africa. Explore my client work and development expertise.',
+		url: 'https://niaexe.vercel.app',
+		siteName: 'Liam Moodley - Portfolio',
 		images: [
 			{
 				url: '/og-image.jpg',
 				width: 1200,
 				height: 630,
-				alt: '[Your Name] - Modern Minimal Portfolio',
+				alt: 'Liam Moodley - Modern Minimal Portfolio',
 			},
 		],
 		locale: 'en_US',
@@ -53,9 +53,9 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: '[Your Name] - Software Developer',
-		description: 'Passionate software developer creating clean, minimal, and effective digital solutions. Explore my work and development philosophy.',
-		creator: '@yourusername',
+		title: 'Liam Moodley - Frontend & Backend Developer | UI/UX Designer',
+		description: 'Frontend & Backend Developer and UI/UX Designer from Johannesburg, South Africa. Explore my client work and development expertise.',
+		creator: '@liammoodley',
 		images: ['/og-image.jpg'],
 	},
 	robots: {

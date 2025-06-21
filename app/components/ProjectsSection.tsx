@@ -7,27 +7,35 @@ import Link from 'next/link';
 const projects = [
 	{
 		id: 1,
-		title: 'E-Commerce Platform',
-		description: 'A modern e-commerce platform built with Next.js and Stripe',
+		title: 'People Solutions Hub',
+		description: 'HR Company website with modern design and functionality',
 		image: '/code.jpg',
+		link: 'https://peoplesolutionshub.com.au/',
+		type: 'Website Only'
 	},
 	{
 		id: 2,
-		title: 'AI Chat Application',
-		description: 'Real-time chat application powered by OpenAI',
+		title: 'Fractional Agency',
+		description: 'Fractional Marketing Company platform',
 		image: '/laptop.jpg',
+		link: 'https://www.fractionalagency.co.za/',
+		type: 'Website'
 	},
 	{
 		id: 3,
-		title: 'Task Management',
-		description: 'Collaborative task management tool with real-time updates',
+		title: 'Africa Matters Initiative',
+		description: 'NGO website promoting African development initiatives',
 		image: '/code.jpg',
+		link: 'https://www.fractionalagency.co.za/',
+		type: 'NGO Platform'
 	},
 	{
 		id: 4,
-		title: 'Portfolio Generator',
-		description: 'Dynamic portfolio generator for developers',
+		title: 'CROW',
+		description: 'Animal Rehabilitation Center website and management system',
 		image: '/laptop.jpg',
+		link: 'https://crowkzn.co.za/',
+		type: 'Rehabilitation Center'
 	},
 ];
 
@@ -41,7 +49,7 @@ export default function ProjectsSection() {
 				transition={{ duration: 0.6 }}
 				className="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center"
 			>
-				Featured Projects
+				Featured Clients
 			</motion.h2>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -61,12 +69,12 @@ export default function ProjectsSection() {
 							<h3 className="text-xl font-bold mb-2">{project.title}</h3>
 							<p className="text-gray-300 mb-4">{project.description}</p>
 							<div className="flex gap-4">
-								<Link href="#" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
-									View Project
+								<Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
+									Visit Website
 								</Link>
-								<Link href="#" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
-									GitHub
-								</Link>
+								<span className="text-sm px-4 py-2 bg-blue-600/20 rounded-full text-blue-300">
+									{project.type}
+								</span>
 							</div>
 						</div>
 					</motion.div>
