@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: 'Liam Moodley - Frontend & Backend Developer | UI/UX Designer',
+	title: 'Liam Moodley - Full-Stack Web Developer & UI/UX Designer',
 	description:
-		'Frontend & Backend Developer and UI/UX Designer from Johannesburg, South Africa. Specializing in CSS, JavaScript, Next.js, D3.js, Node.js, SEO, WordPress, and UI/UX design. Creating clean, minimal, and effective digital solutions.',
+		'Full-Stack Web Developer & UI/UX Designer from Johannesburg, South Africa. Creating digital solutions for businesses using CSS3, JavaScript, Next.js, D3.js, Node.js, SEO, WordPress, and modern design principles.',
 	keywords: [
 		'Software Developer',
 		'Clean Code',

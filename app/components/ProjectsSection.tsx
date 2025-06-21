@@ -8,34 +8,47 @@ const projects = [
 	{
 		id: 1,
 		title: 'People Solutions Hub',
-		description: 'HR Company website with modern design and functionality',
-		image: '/code.jpg',
+		description: 'Professional HR company website with modern design and comprehensive functionality',
+		image: '/people-solutions-hub.jpg',
 		link: 'https://peoplesolutionshub.com.au/',
-		type: 'Website Only'
+		type: 'Business Website',
+		tech: 'WordPress, Custom CSS'
 	},
 	{
 		id: 2,
 		title: 'Fractional Agency',
-		description: 'Fractional Marketing Company platform',
-		image: '/laptop.jpg',
+		description: 'Marketing company platform showcasing fractional marketing services',
+		image: '/fractional-agency.jpg',
 		link: 'https://www.fractionalagency.co.za/',
-		type: 'Website'
+		type: 'Marketing Platform',
+		tech: 'Next.js, React'
 	},
 	{
 		id: 3,
 		title: 'Africa Matters Initiative',
-		description: 'NGO website promoting African development initiatives',
-		image: '/code.jpg',
+		description: 'NGO platform promoting African development and community initiatives',
+		image: '/africa-matters.jpg',
 		link: 'https://www.fractionalagency.co.za/',
-		type: 'NGO Platform'
+		type: 'NGO Website',
+		tech: 'WordPress, SEO'
 	},
 	{
 		id: 4,
-		title: 'CROW',
-		description: 'Animal Rehabilitation Center website and management system',
-		image: '/laptop.jpg',
+		title: 'CROW Animal Rehabilitation',
+		description: 'Wildlife rehabilitation center with donation and volunteer management',
+		image: '/crow.jpg',
 		link: 'https://crowkzn.co.za/',
-		type: 'Rehabilitation Center'
+		type: 'Non-Profit',
+		tech: 'WordPress, UI/UX'
+	},
+	{
+		id: 5,
+		title: 'University Portfolio Work',
+		description: 'Collection of academic projects showcasing web development and design skills',
+		image: '/university-work.jpg',
+		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1',
+		type: 'Academic Portfolio',
+		tech: 'Wix, JavaScript, CSS'
 	},
 ];
 
@@ -52,7 +65,7 @@ export default function ProjectsSection() {
 				Featured Clients
 			</motion.h2>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{projects.map((project) => (
 					<motion.div
 						key={project.id}
@@ -67,14 +80,19 @@ export default function ProjectsSection() {
 						<div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-300" />
 						<div className="absolute inset-0 p-6 flex flex-col justify-end">
 							<h3 className="text-xl font-bold mb-2">{project.title}</h3>
-							<p className="text-gray-300 mb-4">{project.description}</p>
+							<p className="text-gray-300 mb-3 text-sm">{project.description}</p>
+							<div className="mb-3">
+								<span className="text-xs px-2 py-1 bg-purple-600/20 text-purple-300 rounded-full mr-2">
+									{project.type}
+								</span>
+								<span className="text-xs px-2 py-1 bg-green-600/20 text-green-300 rounded-full">
+									{project.tech}
+								</span>
+							</div>
 							<div className="flex gap-4">
 								<Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
 									Visit Website
 								</Link>
-								<span className="text-sm px-4 py-2 bg-blue-600/20 rounded-full text-blue-300">
-									{project.type}
-								</span>
 							</div>
 						</div>
 					</motion.div>
