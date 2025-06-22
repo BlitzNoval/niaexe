@@ -56,6 +56,18 @@ const projects = [
 		client: 'Personal Work',
 		note: 'Academic Projects'
 	},
+	{
+		id: 6,
+		title: 'Coming Soon',
+		description: 'Exciting new projects in development. Stay tuned for updates.',
+		image: '/laptop.jpg',
+		link: '#',
+		type: 'New Project',
+		tech: 'Coming Soon',
+		client: 'TBA',
+		note: 'In Development',
+		comingSoon: true
+	},
 ];
 
 export default function ProjectsSection() {
@@ -85,7 +97,6 @@ export default function ProjectsSection() {
 						<Image src={project.image} alt={project.title} fill className="object-cover transition-transform group-hover:scale-105" />
 						<div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-300" />
 						<div className="absolute inset-0 p-6 flex flex-col justify-end">
-							<h3 className="text-xl font-bold mb-2">{project.title}</h3>
 							<p className="text-gray-300 mb-3 text-sm">{project.description}</p>
 							{project.note && (
 								<p className="text-yellow-300 mb-2 text-xs font-medium">{project.note}</p>
@@ -99,9 +110,15 @@ export default function ProjectsSection() {
 								</span>
 							</div>
 							<div className="flex justify-between items-center">
-								<Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
-									Visit Website
-								</Link>
+								{project.comingSoon ? (
+									<span className="text-sm px-4 py-2 bg-gray-600/20 text-gray-400 rounded-full cursor-not-allowed">
+										Coming Soon
+									</span>
+								) : (
+									<Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
+										Visit Website
+									</Link>
+								)}
 								<span className="text-xs text-gray-400 font-medium">{project.client}</span>
 							</div>
 						</div>
