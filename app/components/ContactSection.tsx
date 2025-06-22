@@ -43,27 +43,17 @@ export default function ContactSection() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.6, delay: 0.4 }}
-					className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
+					className="flex justify-center mb-8"
 				>
 					<a
 						href="mailto:niaexedev@gmail.com"
-						className="group flex items-center gap-2 px-6 py-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors w-full sm:w-auto"
+						className="group flex items-center gap-2 px-6 py-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors"
 					>
 						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
 							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
 							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 						</svg>
 						<span>Get in Touch</span>
-					</a>
-					<a
-						href="mailto:niaexedev@gmail.com"
-						className="group flex items-center gap-2 px-6 py-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors w-full sm:w-auto"
-					>
-						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-						</svg>
-						<span>Email Me</span>
 					</a>
 				</motion.div>
 

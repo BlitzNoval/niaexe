@@ -12,7 +12,8 @@ const projects = [
 		image: '/PeopleSolutionsHub.png',
 		link: 'https://peoplesolutionshub.com.au/',
 		type: 'Business Website',
-		tech: 'WordPress'
+		tech: 'WordPress, SEO',
+		client: 'People Solutions Hub'
 	},
 	{
 		id: 2,
@@ -20,8 +21,9 @@ const projects = [
 		description: 'Marketing company platform showcasing fractional marketing services',
 		image: '/Fractional.png',
 		link: 'https://www.fractionalagency.co.za/',
-		type: 'Business',
-		tech: 'WordPress, Custom CSS'
+		type: 'Business Website',
+		tech: 'WordPress, Custom CSS',
+		client: 'Fractional Agency'
 	},
 	{
 		id: 3,
@@ -30,7 +32,8 @@ const projects = [
 		image: '/AfricaMatters.png',
 		link: 'https://www.fractionalagency.co.za/',
 		type: 'WIX',
-		tech: 'Responsiveness'
+		tech: 'Responsiveness',
+		client: 'Africa Matters'
 	},
 	{
 		id: 4,
@@ -39,16 +42,19 @@ const projects = [
 		image: '/Crow.png',
 		link: 'https://crowkzn.co.za/',
 		type: 'UI/UX',
-		tech: 'NGO Website'
+		tech: 'NGO Website',
+		client: 'CROW KZN'
 	},
 	{
 		id: 5,
 		title: 'University Portfolio Work',
 		description: 'Collection of academic projects showcasing web development and design skills',
-		image: '/Wix.png',
+		image: '/code.jpg',
 		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1',
 		type: 'NextJS & React',
-		tech: 'CSS, D3.js'
+		tech: 'CSS, D3.js',
+		client: 'Personal Work',
+		note: 'Academic Projects'
 	},
 ];
 
@@ -81,6 +87,9 @@ export default function ProjectsSection() {
 						<div className="absolute inset-0 p-6 flex flex-col justify-end">
 							<h3 className="text-xl font-bold mb-2">{project.title}</h3>
 							<p className="text-gray-300 mb-3 text-sm">{project.description}</p>
+							{project.note && (
+								<p className="text-yellow-300 mb-2 text-xs font-medium">{project.note}</p>
+							)}
 							<div className="mb-3">
 								<span className="text-xs px-2 py-1 bg-purple-600/20 text-purple-300 rounded-full mr-2">
 									{project.type}
@@ -89,10 +98,11 @@ export default function ProjectsSection() {
 									{project.tech}
 								</span>
 							</div>
-							<div className="flex gap-4">
+							<div className="flex justify-between items-center">
 								<Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
 									Visit Website
 								</Link>
+								<span className="text-xs text-gray-400 font-medium">{project.client}</span>
 							</div>
 						</div>
 					</motion.div>
