@@ -9,46 +9,46 @@ const projects = [
 		id: 1,
 		title: 'People Solutions Hub',
 		description: 'Professional HR company website with modern design and comprehensive functionality',
-		image: '/code.jpg',
+		image: '/PeopleSolutionsHub.png',
 		link: 'https://peoplesolutionshub.com.au/',
 		type: 'Business Website',
-		tech: 'WordPress, Custom CSS'
+		tech: 'WordPress'
 	},
 	{
 		id: 2,
 		title: 'Fractional Agency',
 		description: 'Marketing company platform showcasing fractional marketing services',
-		image: '/laptop.jpg',
+		image: '/Fractional.png',
 		link: 'https://www.fractionalagency.co.za/',
-		type: 'Marketing Platform',
-		tech: 'Next.js, React'
+		type: 'Business',
+		tech: 'WordPress, Custom CSS'
 	},
 	{
 		id: 3,
 		title: 'Africa Matters Initiative',
 		description: 'NGO platform promoting African development and community initiatives',
-		image: '/code.jpg',
+		image: '/AfricaMatters.png',
 		link: 'https://www.fractionalagency.co.za/',
-		type: 'NGO Website',
-		tech: 'WordPress, SEO'
+		type: 'WIX',
+		tech: 'Responsiveness'
 	},
 	{
 		id: 4,
 		title: 'CROW Animal Rehabilitation',
 		description: 'Wildlife rehabilitation center with donation and volunteer management',
-		image: '/laptop.jpg',
+		image: '/Crow.png',
 		link: 'https://crowkzn.co.za/',
-		type: 'Non-Profit',
-		tech: 'WordPress, UI/UX'
+		type: 'UI/UX',
+		tech: 'NGO Website'
 	},
 	{
 		id: 5,
 		title: 'University Portfolio Work',
 		description: 'Collection of academic projects showcasing web development and design skills',
-		image: '/code.jpg',
+		image: '/Wix.png',
 		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1',
-		type: 'Academic Portfolio',
-		tech: 'Wix, JavaScript, CSS'
+		type: 'NextJS & React',
+		tech: 'CSS, D3.js'
 	},
 ];
 
