@@ -1,10 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ParallaxWrapper from './ParallaxWrapper';
 
 export default function ContactSection() {
 	return (
-		<section className="py-12 md:py-20 px-4">
+		<ParallaxWrapper speed={0.3}>
+			<section className="py-12 md:py-20 px-4 bg-background dark:bg-gray-900 light:bg-white transition-colors duration-300">
 			<div className="max-w-3xl mx-auto text-center">
 				<motion.h2
 					initial={{ opacity: 0, y: 20 }}
@@ -81,6 +83,7 @@ export default function ContactSection() {
 					</a>
 				</motion.div>
 			</div>
-		</section>
+			</section>
+		</ParallaxWrapper>
 	);
 }

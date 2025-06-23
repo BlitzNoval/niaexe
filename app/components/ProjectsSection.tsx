@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import ParallaxWrapper from './ParallaxWrapper';
 
 const projects = [
 	{
@@ -48,7 +49,7 @@ const projects = [
 	{
 		id: 5,
 		title: 'University Portfolio Work',
-		description: 'Collection of academic projects showcasing web development and design skills',
+		description: 'Academic projects featuring web development and game design innovations',
 		image: '/code.jpg',
 		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1',
 		type: 'NextJS & React',
@@ -72,7 +73,7 @@ const projects = [
 
 export default function ProjectsSection() {
 	return (
-		<section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">
+		<section className="py-12 md:py-20 px-4 max-w-7xl mx-auto bg-background dark:bg-gray-900 light:bg-white transition-colors duration-300">
 			<motion.h2
 				initial={{ opacity: 0, y: 20 }}
 				whileInView={{ opacity: 1, y: 0 }}
@@ -84,20 +85,20 @@ export default function ProjectsSection() {
 			</motion.h2>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				{projects.map((project) => (
-					<motion.div
-						key={project.id}
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.6, delay: project.id * 0.1 }}
-						whileHover={{ scale: 1.02 }}
-						className="group relative aspect-video bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-xl overflow-hidden"
-					>
+				{projects.map((project, index) => (
+					<ParallaxWrapper speed={0.1 * (index % 3)} key={project.id}>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.6, delay: project.id * 0.1 }}
+							whileHover={{ scale: 1.02 }}
+							className="group relative aspect-video bg-gradient-to-br from-purple-900/50 to-blue-900/50 dark:from-purple-800/60 dark:to-blue-800/60 light:from-purple-200/30 light:to-blue-200/30 rounded-xl overflow-hidden"
+						>
 						<Image src={project.image} alt={project.title} fill className="object-cover transition-transform group-hover:scale-105" />
-						<div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-300" />
+						<div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-300" />
 						<div className="absolute inset-0 p-6 flex flex-col justify-end">
-							<p className="text-gray-300 mb-3 text-sm">{project.description}</p>
+							<p className="text-white mb-3 text-sm font-medium leading-relaxed drop-shadow-lg">{project.description}</p>
 							{project.note && (
 								<p className="text-yellow-300 mb-2 text-xs font-medium">{project.note}</p>
 							)}
@@ -119,10 +120,11 @@ export default function ProjectsSection() {
 										Visit Website
 									</Link>
 								)}
-								<span className="text-xs text-gray-400 font-medium">{project.client}</span>
+								<span className="text-xs text-gray-200 font-medium drop-shadow-md">{project.client}</span>
 							</div>
-						</div>
-					</motion.div>
+							</div>
+						</motion.div>
+					</ParallaxWrapper>
 				))}
 			</div>
 		</section>

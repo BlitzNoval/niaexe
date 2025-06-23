@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ParallaxWrapper from './ParallaxWrapper';
 
 export default function HeroSection() {
 	return (
@@ -8,14 +9,16 @@ export default function HeroSection() {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 1 }}
-			className="h-screen flex items-center justify-center relative overflow-hidden"
+			className="h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-background dark:from-gray-900 dark:via-black dark:to-gray-900 light:from-gray-50 light:via-white light:to-gray-100"
 		>
-			<div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20" />
+			<ParallaxWrapper speed={0.3}>
+				<div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 dark:from-purple-900/30 dark:to-blue-900/30 light:from-purple-500/10 light:to-blue-500/10" />
+			</ParallaxWrapper>
 			<div className="absolute inset-0">
-				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.7),rgba(0,0,0,1))]" />
+				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.7),rgba(0,0,0,1))] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.7),rgba(0,0,0,1))] light:bg-[radial-gradient(circle_at_50%_50%,rgba(100,116,139,0.1),rgba(255,255,255,1))]" />
 			</div>
 
-			<div className="relative z-10 text-center">
+			<ParallaxWrapper speed={0.2} className="relative z-10 text-center">
 				<motion.h1
 					initial={{ y: 50 }}
 					animate={{ y: 0 }}
@@ -24,16 +27,19 @@ export default function HeroSection() {
 				>
 					Liam Moodley
 				</motion.h1>
-				<motion.p
+				<motion.div
 					initial={{ y: 50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 0.8, delay: 0.4 }}
-					className="text-lg md:text-xl text-gray-300 mb-6 px-4"
+					className="mb-6 px-4 text-center"
 				>
-					Interactive Web Developer & UI/UX Designer
-					<br />
-					Coding To Connect. Designing for Humans.
-				</motion.p>
+					<p className="text-lg md:text-xl text-gray-300 mb-4">
+						Interactive Web Developer & UI/UX Designer
+					</p>
+					<p className="text-base md:text-lg text-gray-400 font-light italic">
+						Coding To Connect. Designing for Humans.
+					</p>
+				</motion.div>
 
 				<motion.div
 					initial={{ y: 50, opacity: 0 }}
@@ -77,7 +83,7 @@ export default function HeroSection() {
 						</a>
 					</div>
 				</motion.div>
-			</div>
+			</ParallaxWrapper>
 
 			<motion.div
 				initial={{ y: 50, opacity: 0 }}
