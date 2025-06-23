@@ -47,17 +47,6 @@ const projects = [
 		client: 'CROW KZN'
 	},
 	{
-		id: 5,
-		title: 'University Portfolio Work',
-		description: 'Academic projects featuring web development and game design innovations',
-		image: '/code.jpg',
-		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1',
-		type: 'NextJS & React',
-		tech: 'CSS, D3.js',
-		client: 'Personal Work',
-		note: 'Academic Projects'
-	},
-	{
 		id: 6,
 		title: 'Coming Soon',
 		description: 'Exciting new projects in development. Stay tuned for updates.',
@@ -93,8 +82,8 @@ export default function ProjectsSection() {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.6, delay: index * 0.1 }}
-							whileHover={{ y: -5, scale: 1.02 }}
-							className="group bg-card border border-gray-800 dark:border-gray-700 light:border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+							whileHover={{ y: -3, scale: 1.01 }}
+							className="group bg-card border border-gray-800 dark:border-gray-700 light:border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-150"
 						>
 							{/* Image Container */}
 							<div className="relative aspect-video overflow-hidden">
@@ -102,7 +91,7 @@ export default function ProjectsSection() {
 									src={project.image} 
 									alt={project.title} 
 									fill 
-									className="object-cover transition-transform group-hover:scale-105" 
+									className="object-cover transition-transform duration-150 group-hover:scale-102" 
 								/>
 								<div className="absolute top-3 right-3">
 									<span className="text-xs px-2 py-1 bg-black/80 text-white rounded-full font-medium">
@@ -141,10 +130,10 @@ export default function ProjectsSection() {
 											href={project.link} 
 											target="_blank" 
 											rel="noopener noreferrer" 
-											className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-all duration-200 group-hover:scale-105"
+											className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-all duration-100 group-hover:scale-102"
 										>
 											<span>Visit Website</span>
-											<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
 											</svg>
 										</Link>

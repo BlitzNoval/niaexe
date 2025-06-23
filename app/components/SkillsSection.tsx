@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import ParallaxWrapper from './ParallaxWrapper';
 
 const skills = [
@@ -16,7 +15,6 @@ const skills = [
 ];
 
 export default function SkillsSection() {
-	const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
 	return (
 		<ParallaxWrapper speed={0.15}>
@@ -39,10 +37,7 @@ export default function SkillsSection() {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.6, delay: index * 0.1 }}
-							whileHover={{ y: -5, scale: 1.05 }}
-							onHoverStart={() => setHoveredSkill(skill.name)}
-							onHoverEnd={() => setHoveredSkill(null)}
-							className="group relative bg-card border border-gray-800 dark:border-gray-700 rounded-xl p-6 hover:shadow-2xl transition-all duration-300 cursor-pointer"
+							className="bg-card border border-gray-800 dark:border-gray-700 rounded-xl p-6"
 						>
 							{/* Skill Name */}
 							<h3 className="text-lg font-semibold text-card-foreground mb-2 text-center">
@@ -53,14 +48,6 @@ export default function SkillsSection() {
 							<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
 								{skill.category}
 							</p>
-
-							{/* Hover Effect Overlay */}
-							<motion.div
-								className="absolute inset-0 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl"
-								initial={{ opacity: 0 }}
-								animate={{ opacity: hoveredSkill === skill.name ? 1 : 0 }}
-								transition={{ duration: 0.3 }}
-							/>
 						</motion.div>
 					))}
 				</div>

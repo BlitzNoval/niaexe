@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import AnimatedCursor from './components/AnimatedCursor';
 import ScrollProgress from './components/ScrollProgress';
 
 const geistSans = Geist({
@@ -80,9 +79,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="dark">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-none`}>
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<ScrollProgress />
-				<AnimatedCursor />
 				{children}
 			</body>
 		</html>
