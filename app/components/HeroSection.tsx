@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import ParallaxWrapper from './ParallaxWrapper';
+import Hero3DParallax from './Hero3DParallax';
 
 export default function HeroSection() {
 	return (
@@ -11,6 +12,7 @@ export default function HeroSection() {
 			transition={{ duration: 1 }}
 			className="h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-background"
 		>
+			<Hero3DParallax />
 			<ParallaxWrapper speed={0.3}>
 				<div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 dark:from-purple-900/30 dark:to-blue-900/30" />
 			</ParallaxWrapper>
