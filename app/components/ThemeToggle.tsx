@@ -9,9 +9,12 @@ export default function ThemeToggle() {
 	return (
 		<motion.button
 			onClick={toggleTheme}
-			className="fixed top-6 right-6 z-50 p-3 bg-white/10 dark:bg-black/20 backdrop-blur-md rounded-full border border-white/20 dark:border-gray-800 hover:bg-white/20 dark:hover:bg-black/30 transition-colors"
-			whileHover={{ scale: 1.1 }}
+			className="fixed top-6 right-6 z-50 p-3 bg-card/80 backdrop-blur-md rounded-full border border-primary/20 hover:border-primary/40 shadow-lg hover:shadow-primary/20 transition-all duration-300"
+			whileHover={{ scale: 1.1, rotate: 15 }}
 			whileTap={{ scale: 0.95 }}
+			initial={{ opacity: 0, y: -20 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ delay: 1 }}
 			aria-label="Toggle theme"
 		>
 			{theme === 'dark' ? (

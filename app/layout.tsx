@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeToggle from './components/ThemeToggle';
 import AnimatedCursor from './components/AnimatedCursor';
+import ScrollProgress from './components/ScrollProgress';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -83,6 +84,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-none`}>
 				<ThemeProvider>
+					<ScrollProgress />
 					<AnimatedCursor />
 					<ThemeToggle />
 					{children}

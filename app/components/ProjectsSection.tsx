@@ -73,60 +73,88 @@ const projects = [
 
 export default function ProjectsSection() {
 	return (
-		<section className="py-12 md:py-20 px-4 max-w-7xl mx-auto bg-background dark:bg-gray-900 light:bg-white transition-colors duration-300">
-			<motion.h2
-				initial={{ opacity: 0, y: 20 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6 }}
-				className="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center"
-			>
-				Featured Clients
-			</motion.h2>
+		<ParallaxWrapper speed={0.2}>
+			<section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">
+				<motion.h2
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.6 }}
+					className="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center text-foreground"
+				>
+					Featured Clients
+				</motion.h2>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				{projects.map((project, index) => (
-					<ParallaxWrapper speed={0.1 * (index % 3)} key={project.id}>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{projects.map((project, index) => (
 						<motion.div
+							key={project.id}
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
-							transition={{ duration: 0.6, delay: project.id * 0.1 }}
-							whileHover={{ scale: 1.02 }}
-							className="group relative aspect-video bg-gradient-to-br from-purple-900/50 to-blue-900/50 dark:from-purple-800/60 dark:to-blue-800/60 light:from-purple-200/30 light:to-blue-200/30 rounded-xl overflow-hidden"
+							transition={{ duration: 0.6, delay: index * 0.1 }}
+							whileHover={{ y: -5, scale: 1.02 }}
+							className="group bg-card border border-gray-800 dark:border-gray-700 light:border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
 						>
-						<Image src={project.image} alt={project.title} fill className="object-cover transition-transform group-hover:scale-105" />
-						<div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-300" />
-						<div className="absolute inset-0 p-6 flex flex-col justify-end">
-							<p className="text-white mb-3 text-sm font-medium leading-relaxed drop-shadow-lg">{project.description}</p>
-							{project.note && (
-								<p className="text-yellow-300 mb-2 text-xs font-medium">{project.note}</p>
-							)}
-							<div className="mb-3">
-								<span className="text-xs px-2 py-1 bg-purple-600/20 text-purple-300 rounded-full mr-2">
-									{project.type}
-								</span>
-								<span className="text-xs px-2 py-1 bg-green-600/20 text-green-300 rounded-full">
-									{project.tech}
-								</span>
-							</div>
-							<div className="flex justify-between items-center">
-								{project.comingSoon ? (
-									<span className="text-sm px-4 py-2 bg-gray-600/20 text-gray-400 rounded-full cursor-not-allowed">
-										Coming Soon
+							{/* Image Container */}
+							<div className="relative aspect-video overflow-hidden">
+								<Image 
+									src={project.image} 
+									alt={project.title} 
+									fill 
+									className="object-cover transition-transform group-hover:scale-105" 
+								/>
+								<div className="absolute top-3 right-3">
+									<span className="text-xs px-2 py-1 bg-black/80 text-white rounded-full font-medium">
+										{project.client}
 									</span>
-								) : (
-									<Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
-										Visit Website
-									</Link>
-								)}
-								<span className="text-xs text-gray-200 font-medium drop-shadow-md">{project.client}</span>
+								</div>
 							</div>
+
+							{/* Content Container */}
+							<div className="p-6 space-y-4">
+								<p className="text-card-foreground text-sm leading-relaxed">{project.description}</p>
+								
+								{project.note && (
+									<p className="text-yellow-500 dark:text-yellow-400 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/20 px-2 py-1 rounded-full inline-block">
+										{project.note}
+									</p>
+								)}
+
+								<div className="flex flex-wrap gap-2">
+									<span className="text-xs px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">
+										{project.type}
+									</span>
+									<span className="text-xs px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full font-medium">
+										{project.tech}
+									</span>
+								</div>
+
+								<div className="pt-2">
+									{project.comingSoon ? (
+										<span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded-full text-sm font-medium cursor-not-allowed">
+											<div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+											Coming Soon
+										</span>
+									) : (
+										<Link 
+											href={project.link} 
+											target="_blank" 
+											rel="noopener noreferrer" 
+											className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-all duration-200 group-hover:scale-105"
+										>
+											<span>Visit Website</span>
+											<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+											</svg>
+										</Link>
+									)}
+								</div>
 							</div>
 						</motion.div>
-					</ParallaxWrapper>
-				))}
-			</div>
-		</section>
+					))}
+				</div>
+			</section>
+		</ParallaxWrapper>
 	);
 }

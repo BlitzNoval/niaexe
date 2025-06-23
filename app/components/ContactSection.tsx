@@ -6,7 +6,7 @@ import ParallaxWrapper from './ParallaxWrapper';
 export default function ContactSection() {
 	return (
 		<ParallaxWrapper speed={0.3}>
-			<section className="py-12 md:py-20 px-4 bg-background dark:bg-gray-900 light:bg-white transition-colors duration-300">
+			<section className="py-12 md:py-20 px-4">
 			<div className="max-w-3xl mx-auto text-center">
 				<motion.h2
 					initial={{ opacity: 0, y: 20 }}
