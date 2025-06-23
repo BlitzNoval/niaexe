@@ -31,7 +31,7 @@ const projects = [
 		title: 'Africa Matters Initiative',
 		description: 'NGO platform promoting African development and community initiatives',
 		image: '/AfricaMatters.png',
-		link: 'https://www.fractionalagency.co.za/',
+		link: 'https://www.africamattersinitiative.com/',
 		type: 'WIX',
 		tech: 'Responsiveness',
 		client: 'Africa Matters'
