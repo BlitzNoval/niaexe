@@ -128,12 +128,10 @@ function Globe({ visitorCount }: { visitorCount: number }) {
 							<bufferGeometry>
 								<bufferAttribute
 									attach="attributes-position"
-									count={2}
-									array={new Float32Array([
+									args={[new Float32Array([
 										...connectionLines[index].toArray(),
 										...connectionLines[index + 1].toArray()
-									])}
-									itemSize={3}
+									]), 3]}
 								/>
 							</bufferGeometry>
 							<lineBasicMaterial color="#00ff41" transparent opacity={0.4} />
