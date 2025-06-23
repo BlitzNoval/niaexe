@@ -38,8 +38,8 @@ export default function InteractiveBackground() {
 		// Animation loop
 		const animate = () => {
 			setParticles(prev => prev.map(particle => {
-				let newX = particle.x + particle.vx;
-				let newY = particle.y + particle.vy;
+				const newX = particle.x + particle.vx;
+				const newY = particle.y + particle.vy;
 
 				// Bounce off edges
 				if (newX <= 0 || newX >= window.innerWidth) particle.vx *= -1;
