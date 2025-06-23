@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from './contexts/ThemeContext';
-import ThemeToggle from './components/ThemeToggle';
 import AnimatedCursor from './components/AnimatedCursor';
 import ScrollProgress from './components/ScrollProgress';
 
@@ -81,14 +79,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" className="dark">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-none`}>
-				<ThemeProvider>
-					<ScrollProgress />
-					<AnimatedCursor />
-					<ThemeToggle />
-					{children}
-				</ThemeProvider>
+				<ScrollProgress />
+				<AnimatedCursor />
+				{children}
 			</body>
 		</html>
 	);
