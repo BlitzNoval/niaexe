@@ -132,24 +132,17 @@ export default function ProjectsSection() {
 								</div>
 
 								<div className="pt-2">
-									{project.comingSoon ? (
-										<span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded-full text-sm font-medium cursor-not-allowed">
-											<div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-											Coming Soon
-										</span>
-									) : (
-										<Link 
-											href={project.link} 
-											target="_blank" 
-											rel="noopener noreferrer" 
-											className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-all duration-100 group-hover:scale-102"
-										>
-											<span>Visit Website</span>
-											<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-											</svg>
-										</Link>
-									)}
+									<Link 
+										href={project.link} 
+										target="_blank" 
+										rel="noopener noreferrer" 
+										className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-all duration-100 group-hover:scale-102"
+									>
+										<span>Visit Website</span>
+										<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+										</svg>
+									</Link>
 								</div>
 							</div>
 							</motion.div>
