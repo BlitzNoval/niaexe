@@ -14,58 +14,6 @@ export default function HeroSection() {
 		>
 			<Hero3DParallax />
 			
-			{/* Hyperspeed lines effect */}
-			<motion.div 
-				className="absolute inset-0 z-40 overflow-hidden"
-				initial={{ opacity: 0 }}
-				animate={{ opacity: [0, 1, 1, 0] }}
-				transition={{ 
-					duration: 2.5,
-					delay: 0.5,
-					times: [0, 0.1, 0.8, 1]
-				}}
-			>
-				{/* Multiple speed lines */}
-				{Array.from({ length: 50 }).map((_, i) => (
-					<motion.div
-						key={i}
-						className="absolute bg-gradient-to-r from-transparent via-blue-400/80 to-transparent h-0.5"
-						style={{
-							top: `${Math.random() * 100}%`,
-							left: "-100%",
-							width: `${200 + Math.random() * 300}px`,
-							transform: `rotate(${-5 + Math.random() * 10}deg)`
-						}}
-						initial={{ x: "-100vw" }}
-						animate={{ x: "100vw" }}
-						transition={{ 
-							duration: 0.3 + Math.random() * 0.4,
-							delay: 0.5 + (i * 0.02),
-							ease: "easeOut"
-						}}
-					/>
-				))}
-				{Array.from({ length: 30 }).map((_, i) => (
-					<motion.div
-						key={`purple-${i}`}
-						className="absolute bg-gradient-to-r from-transparent via-purple-400/60 to-transparent h-0.5"
-						style={{
-							top: `${Math.random() * 100}%`,
-							left: "-100%",
-							width: `${150 + Math.random() * 250}px`,
-							transform: `rotate(${-3 + Math.random() * 6}deg)`
-						}}
-						initial={{ x: "-100vw" }}
-						animate={{ x: "100vw" }}
-						transition={{ 
-							duration: 0.4 + Math.random() * 0.3,
-							delay: 0.7 + (i * 0.03),
-							ease: "easeOut"
-						}}
-					/>
-				))}
-			</motion.div>
-			
 			{/* Enhanced spinning gradient background */}
 			<motion.div 
 				className="absolute inset-0 w-[200%] h-[200%] -top-1/2 -left-1/2"
@@ -76,13 +24,13 @@ export default function HeroSection() {
 					rotate: [0, 180, 360] 
 				}}
 				transition={{ 
-					opacity: { duration: 1, delay: 3 },
-					scale: { duration: 1.5, delay: 3 },
+					opacity: { duration: 1, delay: 1 },
+					scale: { duration: 1.5, delay: 1 },
 					rotate: { 
 						duration: 30,
 						repeat: Infinity,
 						ease: "linear",
-						delay: 4
+						delay: 2
 					}
 				}}
 				style={{
@@ -105,7 +53,7 @@ export default function HeroSection() {
 				className="absolute inset-0"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				transition={{ duration: 1.5, delay: 3.2 }}
+				transition={{ duration: 1.5, delay: 1.5 }}
 			>
 				{Array.from({ length: 100 }).map((_, i) => (
 					<motion.div
@@ -135,12 +83,12 @@ export default function HeroSection() {
 				className="absolute inset-0"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				transition={{ duration: 2, delay: 4.5 }}
+				transition={{ duration: 2, delay: 3 }}
 			>
 				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.6),hsl(var(--background)))] backdrop-blur-sm" />
 			</motion.div>
 
-			<ParallaxWrapper speed={0.2} className="relative z-20 text-center">
+			<ParallaxWrapper speed={0.2} className="relative z-50 text-center">
 				<motion.h1
 					initial={{ y: 50, opacity: 0 }}
 					animate={{ 
@@ -149,9 +97,9 @@ export default function HeroSection() {
 						scale: [1, 1.02, 1]
 					}}
 					transition={{ 
-						y: { duration: 0.8, delay: 3.5 },
-						opacity: { duration: 0.8, delay: 3.5 },
-						scale: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 6 }
+						y: { duration: 0.8, delay: 2 },
+						opacity: { duration: 0.8, delay: 2 },
+						scale: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 4 }
 					}}
 					className="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
 				>
@@ -160,7 +108,7 @@ export default function HeroSection() {
 				<motion.div
 					initial={{ y: 50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.8, delay: 3.7 }}
+					transition={{ duration: 0.8, delay: 2.2 }}
 					className="mb-6 px-4 text-center"
 				>
 					<motion.p 
@@ -198,7 +146,7 @@ export default function HeroSection() {
 				<motion.div
 					initial={{ y: 50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.8, delay: 3.9 }}
+					transition={{ duration: 0.8, delay: 2.4 }}
 					className="flex flex-col items-center gap-4 mb-6"
 				>
 					<motion.a
@@ -242,12 +190,12 @@ export default function HeroSection() {
 						<span>niaexedev@gmail.com</span>
 					</motion.a>
 
-					<div className="flex gap-4 relative z-30">
+					<div className="flex gap-4 relative z-50">
 						<motion.a 
 							href="https://github.com/BlitzNoval" 
 							target="_blank" 
 							rel="noopener noreferrer" 
-							className="transition-colors p-2 hover:bg-white/10 rounded-full relative z-10"
+							className="transition-colors p-3 hover:bg-white/20 rounded-full relative z-50 cursor-pointer"
 							animate={{ 
 								y: [0, -3, 0],
 								rotate: [0, 2, -2, 0]
@@ -270,7 +218,7 @@ export default function HeroSection() {
 							href="https://www.linkedin.com/in/liammoodley/" 
 							target="_blank" 
 							rel="noopener noreferrer" 
-							className="transition-colors p-2 hover:bg-white/10 rounded-full relative z-10"
+							className="transition-colors p-3 hover:bg-white/20 rounded-full relative z-50 cursor-pointer"
 							animate={{ 
 								y: [0, -3, 0],
 								scale: [1, 1.1, 1]
@@ -293,7 +241,7 @@ export default function HeroSection() {
 							href="https://www.figma.com/@liamjm" 
 							target="_blank" 
 							rel="noopener noreferrer" 
-							className="transition-colors p-2 hover:bg-white/10 rounded-full relative z-10"
+							className="transition-colors p-3 hover:bg-white/20 rounded-full relative z-50 cursor-pointer"
 							animate={{ 
 								y: [0, -3, 0],
 								rotate: [0, -3, 3, 0]
@@ -316,7 +264,7 @@ export default function HeroSection() {
 							href="https://ljmoodley03.wixsite.com/liam-j-m-1/blog" 
 							target="_blank" 
 							rel="noopener noreferrer" 
-							className="transition-colors p-2 hover:bg-white/10 rounded-full relative z-10"
+							className="transition-colors p-3 hover:bg-white/20 rounded-full relative z-50 cursor-pointer"
 							animate={{ 
 								y: [0, -3, 0],
 								rotate: [0, 4, -4, 0]
