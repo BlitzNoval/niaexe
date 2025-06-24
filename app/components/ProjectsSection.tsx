@@ -47,6 +47,17 @@ const projects = [
 		client: 'CROW KZN'
 	},
 	{
+		id: 5,
+		title: 'Developing Projects',
+		description: 'Explore my personal blog and creative projects currently in development.',
+		image: '/UnderDevelopmentGif.gif',
+		link: 'https://ljmoodley03.wixsite.com/liam-j-m-1/blog',
+		type: 'Personal Blog',
+		tech: 'Wix Studio',
+		client: 'Personal',
+		note: 'In Development'
+	},
+	{
 		id: 6,
 		title: 'Coming Soon',
 		description: 'Exciting new projects in development. Stay tuned for updates.',
