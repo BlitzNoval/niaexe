@@ -57,18 +57,6 @@ const projects = [
 		client: 'Personal',
 		note: 'In Development'
 	},
-	{
-		id: 6,
-		title: 'Coming Soon',
-		description: 'Exciting new projects in development. Stay tuned for updates.',
-		image: '/laptop.jpg',
-		link: '#',
-		type: 'New Project',
-		tech: 'Coming Soon',
-		client: 'TBA',
-		note: 'In Development',
-		comingSoon: true
-	},
 ];
 
 export default function ProjectsSection() {
@@ -93,9 +81,22 @@ export default function ProjectsSection() {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.6, delay: index * 0.1 }}
-							whileHover={{ y: -3, scale: 1.01 }}
+							whileHover={{ y: -8, scale: 1.02 }}
 							className="group bg-card border border-gray-800 dark:border-gray-700 light:border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-150"
 						>
+							<motion.div
+								animate={{ 
+									y: [0, -3, 0],
+									rotate: [0, 0.3, -0.3, 0]
+								}}
+								transition={{ 
+									duration: 4 + index * 0.5,
+									repeat: Infinity,
+									delay: index * 1.5,
+									ease: "easeInOut"
+								}}
+								className="w-full h-full"
+							>
 							{/* Image Container */}
 							<div className="relative aspect-video overflow-hidden">
 								<Image 
@@ -151,6 +152,7 @@ export default function ProjectsSection() {
 									)}
 								</div>
 							</div>
+							</motion.div>
 						</motion.div>
 					))}
 				</div>
