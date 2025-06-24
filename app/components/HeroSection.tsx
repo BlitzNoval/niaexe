@@ -85,7 +85,7 @@ export default function HeroSection() {
 				animate={{ opacity: 1 }}
 				transition={{ duration: 2, delay: 3 }}
 			>
-				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.6),hsl(var(--background)))] backdrop-blur-sm" />
+				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.3),hsl(var(--background)))] backdrop-blur-[2px]" />
 			</motion.div>
 
 			<ParallaxWrapper speed={0.2} className="relative z-50 text-center">
