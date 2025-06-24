@@ -22,26 +22,20 @@ export default function HeroSection() {
 
 			<ParallaxWrapper speed={0.2} className="relative z-10 text-center">
 				<motion.h1
-					initial={{ y: 50 }}
-					animate={{ y: 0 }}
-					transition={{ duration: 0.8, delay: 0.2 }}
+					initial={{ y: 50, opacity: 0 }}
+					animate={{ 
+						y: 0, 
+						opacity: 1,
+						scale: [1, 1.02, 1]
+					}}
+					transition={{ 
+						y: { duration: 0.8, delay: 0.2 },
+						opacity: { duration: 0.8, delay: 0.2 },
+						scale: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 }
+					}}
 					className="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
 				>
-					<motion.span
-						animate={{ 
-							y: [0, -8, 0],
-							scale: [1, 1.02, 1]
-						}}
-						transition={{ 
-							duration: 6,
-							repeat: Infinity,
-							ease: "easeInOut",
-							delay: 2
-						}}
-						className="inline-block"
-					>
-						Liam Moodley
-					</motion.span>
+					Liam Moodley
 				</motion.h1>
 				<motion.div
 					initial={{ y: 50, opacity: 0 }}

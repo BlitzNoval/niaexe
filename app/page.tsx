@@ -7,6 +7,7 @@ import FigmaSection from './components/FigmaSection';
 import ContactSection from './components/ContactSection';
 import InteractiveBackground from './components/InteractiveBackground';
 import ParallaxLayers from './components/ParallaxLayers';
+import ScrollToTop from './components/ScrollToTop';
 
 export default function MinimalModernPortfolio() {
 	return (
@@ -20,6 +21,7 @@ export default function MinimalModernPortfolio() {
 				<FigmaSection />
 				<ContactSection />
 			</div>
+			<ScrollToTop />
 		</div>
 	);
 }
