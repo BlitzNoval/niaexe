@@ -14,16 +14,51 @@ export default function HeroSection() {
 		>
 			<Hero3DParallax />
 			
+			{/* Flash intro overlay */}
+			<motion.div 
+				className="absolute inset-0 bg-white z-50"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: [0, 0, 1, 0] }}
+				transition={{ 
+					duration: 0.8,
+					delay: 1.5,
+					times: [0, 0.3, 0.5, 1]
+				}}
+			/>
+			
 			{/* Spinning gradient background */}
 			<motion.div 
 				className="absolute inset-0 w-[150%] h-[150%] -top-1/4 -left-1/4 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-indigo-900/30"
+				initial={{ opacity: 0, scale: 0.8 }}
 				animate={{ 
+					opacity: 1,
+					scale: 1,
 					rotate: [0, 360] 
 				}}
 				transition={{ 
-					duration: 25,
-					repeat: Infinity,
-					ease: "linear"
+					opacity: { duration: 0.5, delay: 2.3 },
+					scale: { duration: 0.5, delay: 2.3 },
+					rotate: { 
+						duration: 25,
+						repeat: Infinity,
+						ease: "linear",
+						delay: 2.3
+					}
+				}}
+			/>
+			
+			{/* Boom effect - expanding circle */}
+			<motion.div 
+				className="absolute inset-0 bg-gradient-radial from-blue-400/40 via-purple-500/30 to-transparent"
+				initial={{ scale: 0, opacity: 0 }}
+				animate={{ 
+					scale: [0, 3, 1.5],
+					opacity: [0, 0.8, 0]
+				}}
+				transition={{ 
+					duration: 1.2,
+					delay: 2.2,
+					ease: "easeOut"
 				}}
 			/>
 			
@@ -32,7 +67,7 @@ export default function HeroSection() {
 				className="absolute inset-0"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				transition={{ duration: 3, delay: 2 }}
+				transition={{ duration: 2, delay: 3.5 }}
 			>
 				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.6),hsl(var(--background)))] backdrop-blur-sm" />
 			</motion.div>
@@ -45,58 +80,47 @@ export default function HeroSection() {
 						opacity: 1,
 						scale: [1, 1.02, 1]
 					}}
-					whileHover={{ 
-						scale: 1.02
-					}}
 					transition={{ 
-						y: { duration: 0.8, delay: 0.2 },
-						opacity: { duration: 0.8, delay: 0.2 },
-						scale: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 }
+						y: { duration: 0.8, delay: 2.5 },
+						opacity: { duration: 0.8, delay: 2.5 },
+						scale: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 5 }
 					}}
-					className="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 cursor-default"
+					className="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
 				>
 					Liam Moodley
 				</motion.h1>
 				<motion.div
 					initial={{ y: 50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.8, delay: 0.4 }}
+					transition={{ duration: 0.8, delay: 2.7 }}
 					className="mb-6 px-4 text-center"
 				>
 					<motion.p 
-						className="text-lg md:text-xl text-gray-300 mb-4 cursor-default"
+						className="text-lg md:text-xl text-gray-300 mb-4"
 						animate={{ 
 							x: [0, 3, -3, 0],
 							opacity: [1, 0.8, 1]
 						}}
-						whileHover={{ 
-							x: 0,
-							opacity: 1
-						}}
 						transition={{ 
-							duration: 8,
+							duration: 4,
 							repeat: Infinity,
 							ease: "easeInOut",
-							delay: 3
+							delay: 5
 						}}
 					>
 						Interactive Web Developer & UI/UX Designer
 					</motion.p>
 					<motion.p 
-						className="text-base md:text-lg text-gray-400 font-light italic cursor-default"
+						className="text-base md:text-lg text-gray-400 font-light italic"
 						animate={{ 
 							y: [0, 4, 0],
 							scale: [1, 1.01, 1]
 						}}
-						whileHover={{ 
-							y: 0,
-							scale: 1
-						}}
 						transition={{ 
-							duration: 7,
+							duration: 3.5,
 							repeat: Infinity,
 							ease: "easeInOut",
-							delay: 5
+							delay: 6
 						}}
 					>
 						Coding To Connect. Designing for Humans.
@@ -106,7 +130,7 @@ export default function HeroSection() {
 				<motion.div
 					initial={{ y: 50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.8, delay: 0.5 }}
+					transition={{ duration: 0.8, delay: 2.9 }}
 					className="flex flex-col items-center gap-4 mb-6"
 				>
 					<motion.a
@@ -124,7 +148,7 @@ export default function HeroSection() {
 							duration: 5,
 							repeat: Infinity,
 							ease: "easeInOut",
-							delay: 4
+							delay: 6
 						}}
 					>
 						<motion.svg 
@@ -141,7 +165,7 @@ export default function HeroSection() {
 								duration: 4,
 								repeat: Infinity,
 								ease: "easeInOut",
-								delay: 6
+								delay: 8
 							}}
 						>
 							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -167,7 +191,7 @@ export default function HeroSection() {
 							transition={{ 
 								duration: 5,
 								repeat: Infinity,
-								delay: 0
+								delay: 7
 							}}
 						>
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -190,7 +214,7 @@ export default function HeroSection() {
 							transition={{ 
 								duration: 5,
 								repeat: Infinity,
-								delay: 1.5
+								delay: 7.5
 							}}
 						>
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -213,7 +237,7 @@ export default function HeroSection() {
 							transition={{ 
 								duration: 5,
 								repeat: Infinity,
-								delay: 3
+								delay: 8
 							}}
 						>
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -236,7 +260,7 @@ export default function HeroSection() {
 							transition={{ 
 								duration: 5,
 								repeat: Infinity,
-								delay: 4.5
+								delay: 8.5
 							}}
 						>
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
