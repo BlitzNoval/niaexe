@@ -13,12 +13,29 @@ export default function HeroSection() {
 			className="h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-background"
 		>
 			<Hero3DParallax />
-			<ParallaxWrapper speed={0.3}>
-				<div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 dark:from-purple-900/30 dark:to-blue-900/30" />
-			</ParallaxWrapper>
-			<div className="absolute inset-0">
-				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.7),hsl(var(--background)))]" />
-			</div>
+			
+			{/* Spinning gradient background */}
+			<motion.div 
+				className="absolute inset-0 w-[150%] h-[150%] -top-1/4 -left-1/4 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-indigo-900/30"
+				animate={{ 
+					rotate: [0, 360] 
+				}}
+				transition={{ 
+					duration: 25,
+					repeat: Infinity,
+					ease: "linear"
+				}}
+			/>
+			
+			{/* Delayed blur overlay */}
+			<motion.div 
+				className="absolute inset-0"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 3, delay: 2 }}
+			>
+				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.6),hsl(var(--background)))] backdrop-blur-sm" />
+			</motion.div>
 
 			<ParallaxWrapper speed={0.2} className="relative z-10 text-center">
 				<motion.h1
@@ -28,12 +45,15 @@ export default function HeroSection() {
 						opacity: 1,
 						scale: [1, 1.02, 1]
 					}}
+					whileHover={{ 
+						scale: 1.02
+					}}
 					transition={{ 
 						y: { duration: 0.8, delay: 0.2 },
 						opacity: { duration: 0.8, delay: 0.2 },
 						scale: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 }
 					}}
-					className="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+					className="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 cursor-default"
 				>
 					Liam Moodley
 				</motion.h1>
@@ -44,10 +64,14 @@ export default function HeroSection() {
 					className="mb-6 px-4 text-center"
 				>
 					<motion.p 
-						className="text-lg md:text-xl text-gray-300 mb-4"
+						className="text-lg md:text-xl text-gray-300 mb-4 cursor-default"
 						animate={{ 
 							x: [0, 3, -3, 0],
 							opacity: [1, 0.8, 1]
+						}}
+						whileHover={{ 
+							x: 0,
+							opacity: 1
 						}}
 						transition={{ 
 							duration: 8,
@@ -59,10 +83,14 @@ export default function HeroSection() {
 						Interactive Web Developer & UI/UX Designer
 					</motion.p>
 					<motion.p 
-						className="text-base md:text-lg text-gray-400 font-light italic"
+						className="text-base md:text-lg text-gray-400 font-light italic cursor-default"
 						animate={{ 
 							y: [0, 4, 0],
 							scale: [1, 1.01, 1]
+						}}
+						whileHover={{ 
+							y: 0,
+							scale: 1
 						}}
 						transition={{ 
 							duration: 7,
@@ -88,6 +116,10 @@ export default function HeroSection() {
 							scale: [1, 1.02, 1],
 							y: [0, -2, 0]
 						}}
+						whileHover={{ 
+							scale: 1.02,
+							y: -2
+						}}
 						transition={{ 
 							duration: 5,
 							repeat: Infinity,
@@ -101,6 +133,9 @@ export default function HeroSection() {
 							viewBox="0 0 20 20"
 							animate={{ 
 								rotate: [0, 5, -5, 0]
+							}}
+							whileHover={{ 
+								rotate: 0
 							}}
 							transition={{ 
 								duration: 4,
@@ -125,6 +160,10 @@ export default function HeroSection() {
 								y: [0, -3, 0],
 								rotate: [0, 2, -2, 0]
 							}}
+							whileHover={{ 
+								y: -3,
+								rotate: 0
+							}}
 							transition={{ 
 								duration: 5,
 								repeat: Infinity,
@@ -143,6 +182,10 @@ export default function HeroSection() {
 							animate={{ 
 								y: [0, -3, 0],
 								scale: [1, 1.1, 1]
+							}}
+							whileHover={{ 
+								y: -3,
+								scale: 1.1
 							}}
 							transition={{ 
 								duration: 5,
@@ -163,6 +206,10 @@ export default function HeroSection() {
 								y: [0, -3, 0],
 								rotate: [0, -3, 3, 0]
 							}}
+							whileHover={{ 
+								y: -3,
+								rotate: 0
+							}}
 							transition={{ 
 								duration: 5,
 								repeat: Infinity,
@@ -181,6 +228,10 @@ export default function HeroSection() {
 							animate={{ 
 								y: [0, -3, 0],
 								rotate: [0, 4, -4, 0]
+							}}
+							whileHover={{ 
+								y: -3,
+								rotate: 0
 							}}
 							transition={{ 
 								duration: 5,

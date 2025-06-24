@@ -89,6 +89,10 @@ export default function ProjectsSection() {
 									y: [0, -3, 0],
 									rotate: [0, 0.3, -0.3, 0]
 								}}
+								whileHover={{ 
+									y: -3,
+									rotate: 0
+								}}
 								transition={{ 
 									duration: 4 + index * 0.5,
 									repeat: Infinity,

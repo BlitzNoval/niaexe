@@ -75,6 +75,10 @@ export default function ContactSection() {
 							y: [0, -2, 0],
 							rotate: [0, 1, -1, 0]
 						}}
+						whileHover={{ 
+							y: -2,
+							rotate: 0
+						}}
 						transition={{ 
 							duration: 4,
 							repeat: Infinity,
@@ -93,6 +97,10 @@ export default function ContactSection() {
 						animate={{ 
 							y: [0, -2, 0],
 							rotate: [0, -1, 1, 0]
+						}}
+						whileHover={{ 
+							y: -2,
+							rotate: 0
 						}}
 						transition={{ 
 							duration: 4,
@@ -113,6 +121,10 @@ export default function ContactSection() {
 							y: [0, -2, 0],
 							scale: [1, 1.05, 1]
 						}}
+						whileHover={{ 
+							y: -2,
+							scale: 1.05
+						}}
 						transition={{ 
 							duration: 4,
 							repeat: Infinity,
@@ -131,6 +143,10 @@ export default function ContactSection() {
 						animate={{ 
 							y: [0, -2, 0],
 							rotate: [0, 2, -2, 0]
+						}}
+						whileHover={{ 
+							y: -2,
+							rotate: 0
 						}}
 						transition={{ 
 							duration: 4,

@@ -58,6 +58,9 @@ export default function ScrollToTop() {
 						animate={{ 
 							y: [0, -2, 0]
 						}}
+						whileHover={{ 
+							y: -2
+						}}
 						transition={{ 
 							duration: 2,
 							repeat: Infinity,
