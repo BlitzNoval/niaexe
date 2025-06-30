@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import ParallaxWrapper from './ParallaxWrapper';
 import Hero3DParallax from './Hero3DParallax';
+import Link from 'next/link';
 
 export default function HeroSection() {
 	return (
@@ -149,46 +150,78 @@ export default function HeroSection() {
 					transition={{ duration: 0.8, delay: 2.4 }}
 					className="flex flex-col items-center gap-4 mb-6"
 				>
-					<motion.a
-						href="mailto:niaexedev@gmail.com"
-						className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-sm relative z-10"
-						animate={{ 
-							scale: [1, 1.02, 1],
-							y: [0, -2, 0]
-						}}
-						whileHover={{ 
-							scale: 1.02,
-							y: -2
-						}}
-						transition={{ 
-							duration: 5,
-							repeat: Infinity,
-							ease: "easeInOut",
-							delay: 6
-						}}
-					>
-						<motion.svg 
-							className="w-4 h-4" 
-							fill="currentColor" 
-							viewBox="0 0 20 20"
+					<div className="flex flex-col sm:flex-row items-center gap-4">
+						<motion.a
+							href="mailto:niaexedev@gmail.com"
+							className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-sm relative z-10"
 							animate={{ 
-								rotate: [0, 5, -5, 0]
+								scale: [1, 1.02, 1],
+								y: [0, -2, 0]
 							}}
 							whileHover={{ 
-								rotate: 0
+								scale: 1.02,
+								y: -2
 							}}
 							transition={{ 
-								duration: 4,
+								duration: 5,
 								repeat: Infinity,
 								ease: "easeInOut",
-								delay: 8
+								delay: 6
 							}}
 						>
-							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-						</motion.svg>
-						<span>niaexedev@gmail.com</span>
-					</motion.a>
+							<motion.svg 
+								className="w-4 h-4" 
+								fill="currentColor" 
+								viewBox="0 0 20 20"
+								animate={{ 
+									rotate: [0, 5, -5, 0]
+								}}
+								whileHover={{ 
+									rotate: 0
+								}}
+								transition={{ 
+									duration: 4,
+									repeat: Infinity,
+									ease: "easeInOut",
+									delay: 8
+								}}
+							>
+								<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+								<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+							</motion.svg>
+							<span>niaexedev@gmail.com</span>
+						</motion.a>
+
+						<motion.div
+							initial={{ y: 50, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ duration: 0.8, delay: 2.6 }}
+						>
+							<Link 
+								href="/quote"
+								className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 rounded-full transition-all text-sm relative z-10 border border-blue-400/30 hover:border-blue-400/50 backdrop-blur-sm"
+							>
+								<motion.svg 
+									className="w-4 h-4" 
+									fill="none" 
+									stroke="currentColor" 
+									viewBox="0 0 24 24"
+									animate={{ 
+										rotate: [0, 10, -10, 0]
+									}}
+									transition={{ 
+										duration: 4,
+										repeat: Infinity,
+										ease: "easeInOut",
+										delay: 8.5
+									}}
+								>
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+								</motion.svg>
+								<span>Craft Your Site</span>
+							</Link>
+						</motion.div>
+					</div>
 
 					<div className="flex gap-4 relative z-50">
 						<motion.a 
