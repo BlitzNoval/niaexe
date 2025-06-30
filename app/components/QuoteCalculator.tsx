@@ -464,7 +464,7 @@ export default function QuoteCalculator() {
 
   useEffect(() => {
     calculateTotals()
-  }, [quote])
+  }, [quote, calculateTotals])
 
   const calculateTotals = () => {
     let oneTime = 0
@@ -706,7 +706,7 @@ export default function QuoteCalculator() {
                 ].map(({ key, label, desc, icon }) => (
                   <motion.button
                     key={key}
-                    onClick={() => setDevelopmentType(key as any)}
+                    onClick={() => setDevelopmentType(key as 'custom' | 'wordpress' | 'template')}
                     className={`p-4 rounded-lg border-2 transition-all ${
                       quote.developmentType === key
                         ? 'border-blue-400 bg-blue-400/20'
