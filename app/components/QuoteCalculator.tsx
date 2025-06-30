@@ -462,10 +462,6 @@ export default function QuoteCalculator() {
 
   const [showTooltip, setShowTooltip] = useState<string | null>(null)
 
-  useEffect(() => {
-    calculateTotals()
-  }, [quote, calculateTotals])
-
   const calculateTotals = () => {
     let oneTime = 0
     let monthly = 0
@@ -540,6 +536,10 @@ export default function QuoteCalculator() {
 
     setTotals({ oneTime, monthly })
   }
+
+  useEffect(() => {
+    calculateTotals()
+  }, [quote])
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({
