@@ -34,7 +34,6 @@ interface QuoteState {
   hosting: Record<string, boolean>
   industrySpecific: Record<string, boolean>
   maintenance: string
-  urgency: number // 1-5 scale
 }
 
 const PROJECT_DISCOVERY: ServiceItem[] = [
@@ -441,12 +440,10 @@ export default function QuoteCalculator() {
     integrations: {},
     hosting: {},
     industrySpecific: {},
-    maintenance: 'none',
-    urgency: 3
+    maintenance: 'none'
   })
 
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    developmentType: true,
     projectDiscovery: false,
     pages: false,
     design: false,
@@ -461,8 +458,7 @@ export default function QuoteCalculator() {
     oneTime: 0,
     monthly: 0,
     originalPrice: 0,
-    savings: 0,
-    timeline: '4-6 weeks'
+    savings: 0
   })
 
   const [showTooltip, setShowTooltip] = useState<string | null>(null)
@@ -570,22 +566,7 @@ export default function QuoteCalculator() {
     oneTime -= bundleDiscount
     const savings = Math.max(0, originalPrice - oneTime)
 
-    // Timeline calculation based on urgency
-    const baseWeeks = quote.developmentType === 'template' ? 2 : quote.developmentType === 'wordpress' ? 4 : 6
-    const urgencyMultiplier = [1.5, 1.25, 1, 0.85, 0.7][quote.urgency - 1] // 1=slow, 5=rush
-    const adjustedWeeks = Math.ceil(baseWeeks * urgencyMultiplier)
-    
-    const timeline = adjustedWeeks <= 1 ? '1 week' : 
-                    adjustedWeeks <= 2 ? '1-2 weeks' :
-                    adjustedWeeks <= 4 ? `${adjustedWeeks} weeks` :
-                    `${adjustedWeeks} weeks`
-
-    // Rush job pricing
-    if (quote.urgency >= 4) {
-      oneTime *= 1.2 // 20% rush fee
-    }
-
-    setTotals({ oneTime, monthly, originalPrice, savings, timeline })
+    setTotals({ oneTime, monthly, originalPrice, savings })
   }, [quote])
 
   useEffect(() => {
@@ -631,45 +612,27 @@ export default function QuoteCalculator() {
       </div>
       <AnimatePresence>
         {showTooltip === service.id && (
-          <>
-            {/* Connection line */}
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              exit={{ opacity: 0, scaleX: 0 }}
-              className="absolute z-40 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-transparent top-1/2 left-full"
-              style={{ transformOrigin: 'left center' }}
-            />
-            {/* Tooltip */}
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.9 }}
-              className="fixed z-50 p-4 bg-gray-900 text-white rounded-lg shadow-xl border border-gray-700 w-80 pointer-events-none"
-              style={{
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <h4 className="font-bold text-blue-400 mb-2">{service.tooltip.title}</h4>
-              <p className="text-sm text-gray-300 mb-3">{service.tooltip.description}</p>
-              {service.tooltip.features && (
-                <ul className="text-xs space-y-1">
-                  {service.tooltip.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
-                      <span className="w-1 h-1 bg-blue-400 rounded-full mr-2"></span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {/* Pointer from center to question mark */}
-              <div className="absolute w-2 h-2 bg-blue-400 rounded-full top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="absolute w-8 h-0.5 bg-gradient-to-l from-blue-400 to-transparent top-1/2 right-1 transform -translate-y-1/2"></div>
-              </div>
-            </motion.div>
-          </>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 10 }}
+            className="absolute z-50 p-4 bg-gray-900 text-white rounded-lg shadow-xl border border-gray-700 w-80 left-full ml-2 top-0"
+          >
+            <h4 className="font-bold text-blue-400 mb-2">{service.tooltip.title}</h4>
+            <p className="text-sm text-gray-300 mb-3">{service.tooltip.description}</p>
+            {service.tooltip.features && (
+              <ul className="text-xs space-y-1">
+                {service.tooltip.features.map((feature, index) => (
+                  <li key={index} className="flex items-center">
+                    <span className="w-1 h-1 bg-blue-400 rounded-full mr-2"></span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {/* Simple arrow pointing to question mark */}
+            <div className="absolute top-4 -left-2 w-0 h-0 border-t-[6px] border-b-[6px] border-r-[8px] border-t-transparent border-b-transparent border-r-gray-700"></div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
@@ -1260,65 +1223,16 @@ export default function QuoteCalculator() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Project Urgency */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9 }}
-              className="bg-white/5 backdrop-blur-md rounded-xl p-6 border border-white/10"
-            >
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <span className="text-3xl">⏰</span>
-                Project Timeline
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Urgency Level</span>
-                  <span className="text-blue-400 font-bold">{totals.timeline}</span>
-                </div>
-                <div className="relative">
-                  <input
-                    type="range"
-                    min="1"
-                    max="5"
-                    value={quote.urgency}
-                    onChange={(e) => setQuote(prev => ({ ...prev, urgency: parseInt(e.target.value) }))}
-                    className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
-                    style={{
-                      background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(quote.urgency - 1) * 25}%, rgba(255,255,255,0.2) ${(quote.urgency - 1) * 25}%, rgba(255,255,255,0.2) 100%)`
-                    }}
-                  />
-                  <div className="flex justify-between text-xs text-gray-400 mt-2">
-                    <span>Flexible</span>
-                    <span>Standard</span>
-                    <span>Priority</span>
-                    <span>Urgent</span>
-                    <span>Rush</span>
-                  </div>
-                </div>
-                {quote.urgency >= 4 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-orange-500/20 border border-orange-500/30 rounded-lg p-3"
-                  >
-                    <div className="flex items-center gap-2 text-orange-400 text-sm">
-                      <span>⚡</span>
-                      <span>Rush fee (+20%) applied for expedited delivery</span>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
           </div>
 
           {/* Quote Summary Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="lg:sticky lg:top-4 space-y-6 h-fit"
-          >
+          <div className="lg:sticky lg:top-8 lg:self-start">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="space-y-6"
+            >
             <div className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 backdrop-blur-md rounded-xl p-6 border border-blue-400/30">
               <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
                 <span className="text-2xl">💰</span>
@@ -1345,29 +1259,20 @@ export default function QuoteCalculator() {
                   </motion.div>
                 )}
 
-                <motion.div 
-                  className="bg-white/10 rounded-lg p-4"
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
+                <div className="bg-white/10 rounded-lg p-4">
                   <div className="text-sm text-gray-300">Project Cost</div>
                   <div className="text-3xl font-bold text-white">
                     R{totals.oneTime.toLocaleString()}
                   </div>
-                  <div className="text-sm text-blue-400 mt-1">Timeline: {totals.timeline}</div>
-                </motion.div>
+                </div>
 
                 {totals.monthly > 0 && (
-                  <motion.div 
-                    className="bg-white/10 rounded-lg p-4"
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                  >
+                  <div className="bg-white/10 rounded-lg p-4">
                     <div className="text-sm text-gray-300">Monthly Ongoing</div>
                     <div className="text-xl font-bold text-white">
                       R{totals.monthly.toLocaleString()}/month
                     </div>
-                  </motion.div>
+                  </div>
                 )}
               </div>
 
@@ -1376,43 +1281,19 @@ export default function QuoteCalculator() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-lg transition-all"
-                  onClick={async () => {
-                    // Prepare quote data
-                    const quoteData = {
-                      developmentType: quote.developmentType,
-                      selectedServices: {
-                        projectDiscovery: Object.keys(quote.projectDiscovery).filter(key => quote.projectDiscovery[key]),
-                        pages: Object.keys(quote.pages).filter(key => quote.pages[key]),
-                        design: Object.keys(quote.design).filter(key => quote.design[key]),
-                        functionality: Object.keys(quote.functionality).filter(key => quote.functionality[key]),
-                        ecommerce: Object.keys(quote.ecommerce).filter(key => quote.ecommerce[key]),
-                        seo: Object.keys(quote.seo).filter(key => quote.seo[key]),
-                        hosting: Object.keys(quote.hosting).filter(key => quote.hosting[key]),
-                        maintenance: quote.maintenance
-                      },
-                      totals,
-                      timestamp: new Date().toISOString()
-                    }
-
-                    // Send email via Formspree or similar service
-                    try {
-                      await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                          subject: 'New Meeting Request - Project Quote',
-                          message: `New project quote request:\n\nDevelopment Type: ${quote.developmentType}\nProject Cost: R${totals.oneTime.toLocaleString()}\n${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month\n` : ''}\nSelected Services: ${JSON.stringify(quoteData.selectedServices, null, 2)}`,
-                          _replyto: 'client@email.com' // This would need to be collected from a form
-                        }),
-                      })
-                      alert('Meeting request sent! I\'ll be in touch soon.')
-                    } catch {
-                      // Fallback to mailto
-                      const mailto = `mailto:niaexedev@gmail.com?subject=Project Meeting Request&body=Hi Liam,%0D%0A%0D%0AI'd like to schedule a meeting to discuss my project:%0D%0A%0D%0ADevelopment Type: ${quote.developmentType}%0D%0AProject Cost: R${totals.oneTime.toLocaleString()}%0D%0A${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month%0D%0A` : ''}%0D%0APlease get in touch to schedule a meeting.%0D%0A%0D%0AThanks!`
-                      window.location.href = mailto
-                    }
+                  onClick={() => {
+                    const selectedServices = [
+                      ...Object.keys(quote.projectDiscovery).filter(key => quote.projectDiscovery[key]),
+                      ...Object.keys(quote.pages).filter(key => quote.pages[key]),
+                      ...Object.keys(quote.design).filter(key => quote.design[key]),
+                      ...Object.keys(quote.functionality).filter(key => quote.functionality[key]),
+                      ...Object.keys(quote.ecommerce).filter(key => quote.ecommerce[key]),
+                      ...Object.keys(quote.seo).filter(key => quote.seo[key]),
+                      ...Object.keys(quote.hosting).filter(key => quote.hosting[key])
+                    ]
+                    
+                    const mailto = `mailto:niaexedev@gmail.com?subject=Project Meeting Request&body=Hi Liam,%0D%0A%0D%0AI'd like to schedule a meeting to discuss my project:%0D%0A%0D%0ADevelopment Type: ${quote.developmentType}%0D%0AProject Cost: R${totals.oneTime.toLocaleString()}%0D%0A${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month%0D%0A` : ''}%0D%0ASelected Services: ${selectedServices.join(', ')}%0D%0A%0D%0APlease get in touch to schedule a meeting.%0D%0A%0D%0AThanks!`
+                    window.location.href = mailto
                   }}
                 >
                   🤝 Request Meeting
@@ -1423,28 +1304,33 @@ export default function QuoteCalculator() {
                   whileTap={{ scale: 0.98 }}
                   className="w-full bg-white/10 hover:bg-white/20 text-white font-medium py-2 px-6 rounded-lg transition-all border border-white/20"
                   onClick={() => {
-                    const quoteData = {
-                      developmentType: quote.developmentType,
-                      selectedServices: {
-                        projectDiscovery: Object.keys(quote.projectDiscovery).filter(key => quote.projectDiscovery[key]),
-                        pages: Object.keys(quote.pages).filter(key => quote.pages[key]),
-                        design: Object.keys(quote.design).filter(key => quote.design[key]),
-                        functionality: Object.keys(quote.functionality).filter(key => quote.functionality[key]),
-                        ecommerce: Object.keys(quote.ecommerce).filter(key => quote.ecommerce[key]),
-                        seo: Object.keys(quote.seo).filter(key => quote.seo[key]),
-                        hosting: Object.keys(quote.hosting).filter(key => quote.hosting[key]),
-                        maintenance: quote.maintenance
-                      },
-                      totals,
-                      timestamp: new Date().toISOString(),
-                      summary: `Development Type: ${quote.developmentType}\nProject Cost: R${totals.oneTime.toLocaleString()}\n${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month\n` : ''}`
-                    }
+                    const selectedServices = [
+                      ...Object.keys(quote.projectDiscovery).filter(key => quote.projectDiscovery[key]),
+                      ...Object.keys(quote.pages).filter(key => quote.pages[key]),
+                      ...Object.keys(quote.design).filter(key => quote.design[key]),
+                      ...Object.keys(quote.functionality).filter(key => quote.functionality[key]),
+                      ...Object.keys(quote.ecommerce).filter(key => quote.ecommerce[key]),
+                      ...Object.keys(quote.seo).filter(key => quote.seo[key]),
+                      ...Object.keys(quote.hosting).filter(key => quote.hosting[key])
+                    ]
                     
-                    const blob = new Blob([JSON.stringify(quoteData, null, 2)], { type: 'application/json' })
+                    const quoteText = `Website Quote Summary
+                    
+Development Type: ${quote.developmentType}
+Project Cost: R${totals.oneTime.toLocaleString()}
+${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month` : ''}
+${totals.savings > 0 ? `Total Savings: R${totals.savings.toLocaleString()}` : ''}
+
+Selected Services:
+${selectedServices.map(service => `• ${service}`).join('\n')}
+
+Generated: ${new Date().toLocaleDateString()}`
+                    
+                    const blob = new Blob([quoteText], { type: 'text/plain' })
                     const url = URL.createObjectURL(blob)
                     const a = document.createElement('a')
                     a.href = url
-                    a.download = `website-quote-${Date.now()}.json`
+                    a.download = `website-quote-${Date.now()}.txt`
                     document.body.appendChild(a)
                     a.click()
                     document.body.removeChild(a)
@@ -1488,7 +1374,8 @@ export default function QuoteCalculator() {
                 </li>
               </ul>
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
