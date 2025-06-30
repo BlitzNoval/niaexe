@@ -139,13 +139,21 @@ export default function QuoteCalculator() {
     calculateTotals()
   }, [quote])
 
-  const toggleFeature = (section: keyof QuoteState, feature: string, value?: any) => {
-    setQuote(prev => ({
-      ...prev,
-      [section]: typeof prev[section] === 'object' 
-        ? { ...prev[section], [feature]: value !== undefined ? value : !prev[section][feature] }
-        : value
-    }))
+  const toggleFeature = (section: keyof QuoteState, feature: string, value?: string | number | boolean) => {
+    setQuote(prev => {
+      if (section === 'siteType') {
+        return { ...prev, siteType: value as 'template' | 'custom' }
+      }
+      
+      const sectionData = prev[section] as Record<string, boolean | number>
+      return {
+        ...prev,
+        [section]: {
+          ...sectionData,
+          [feature]: value !== undefined ? value : !sectionData[feature]
+        }
+      }
+    })
   }
 
   const exportQuote = () => {
@@ -435,7 +443,7 @@ export default function QuoteCalculator() {
             </div>
 
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-              <h4 className="font-bold mb-2">💡 What's Included:</h4>
+              <h4 className="font-bold mb-2">💡 What&apos;s Included:</h4>
               <ul className="text-sm space-y-1 text-gray-300">
                 <li>• Responsive mobile design</li>
                 <li>• Professional layout</li>
