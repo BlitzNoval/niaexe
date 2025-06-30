@@ -83,9 +83,9 @@ const BASIC_PAGES: ServiceItem[] = [
   {
     id: 'homepage',
     name: 'Homepage',
-    customCode: 2800,
+    customCode: 0,
     wordpress: 2200,
-    template: 1500,
+    template: 800,
     tooltip: {
       title: 'Professional Homepage',
       description: 'Your main landing page with hero section, features, and call-to-actions',
@@ -93,23 +93,11 @@ const BASIC_PAGES: ServiceItem[] = [
     }
   },
   {
-    id: 'about',
-    name: 'About Page',
-    customCode: 800,
-    wordpress: 600,
-    template: 400,
-    tooltip: {
-      title: 'Tell Your Story',
-      description: 'Professional about page showcasing your story, team, and values',
-      features: ['Company story', 'Team profiles', 'Mission & values', 'Trust building elements']
-    }
-  },
-  {
     id: 'services',
     name: 'Services Page',
-    customCode: 1200,
+    customCode: 0,
     wordpress: 900,
-    template: 600,
+    template: 400,
     tooltip: {
       title: 'Showcase Your Services',
       description: 'Detailed service listings with descriptions and pricing',
@@ -117,23 +105,11 @@ const BASIC_PAGES: ServiceItem[] = [
     }
   },
   {
-    id: 'contact',
-    name: 'Contact Page',
-    customCode: 900,
-    wordpress: 700,
-    template: 500,
-    tooltip: {
-      title: 'Make Contact Easy',
-      description: 'Contact form, map, business details, and social links',
-      features: ['Contact form', 'Google Maps', 'Business details', 'Social media links', 'WhatsApp integration']
-    }
-  },
-  {
     id: 'portfolio',
     name: 'Portfolio/Gallery',
-    customCode: 1500,
+    customCode: 0,
     wordpress: 1200,
-    template: 800,
+    template: 500,
     tooltip: {
       title: 'Showcase Your Work',
       description: 'Professional portfolio with filterable categories and lightbox',
@@ -143,13 +119,37 @@ const BASIC_PAGES: ServiceItem[] = [
   {
     id: 'blog',
     name: 'Blog/News Page',
-    customCode: 1200,
+    customCode: 0,
     wordpress: 800,
-    template: 600,
+    template: 400,
     tooltip: {
       title: 'Content Management',
       description: 'Blog system for content marketing and news updates',
       features: ['Post listings', 'Categories & tags', 'Search functionality', 'Social sharing']
+    }
+  },
+  {
+    id: 'contact',
+    name: 'Contact Page',
+    customCode: 0,
+    wordpress: 700,
+    template: 300,
+    tooltip: {
+      title: 'Make Contact Easy',
+      description: 'Contact form, map, business details, and social links',
+      features: ['Contact form', 'Google Maps', 'Business details', 'Social media links', 'WhatsApp integration']
+    }
+  },
+  {
+    id: 'about',
+    name: 'About Page',
+    customCode: 0,
+    wordpress: 600,
+    template: 250,
+    tooltip: {
+      title: 'Tell Your Story',
+      description: 'Professional about page showcasing your story, team, and values',
+      features: ['Company story', 'Team profiles', 'Mission & values', 'Trust building elements']
     }
   }
 ]
@@ -158,7 +158,7 @@ const ADVANCED_PAGES: ServiceItem[] = [
   {
     id: 'dashboard',
     name: 'Custom Dashboard',
-    customCode: 5000,
+    customCode: 0,
     wordpress: 3500,
     template: 0,
     tooltip: {
@@ -170,9 +170,9 @@ const ADVANCED_PAGES: ServiceItem[] = [
   {
     id: 'memberPortal',
     name: 'Member Portal',
-    customCode: 4000,
+    customCode: 0,
     wordpress: 3000,
-    template: 2000,
+    template: 1500,
     tooltip: {
       title: 'Exclusive Member Area',
       description: 'Protected content area with user profiles and exclusive content',
@@ -182,9 +182,9 @@ const ADVANCED_PAGES: ServiceItem[] = [
   {
     id: 'bookingSystem',
     name: 'Booking System Page',
-    customCode: 3500,
+    customCode: 0,
     wordpress: 2500,
-    template: 1800,
+    template: 1200,
     tooltip: {
       title: 'Online Appointment System',
       description: 'Complete booking system with calendar and payment integration',
@@ -456,9 +456,7 @@ export default function QuoteCalculator() {
 
   const [totals, setTotals] = useState({
     oneTime: 0,
-    monthly: 0,
-    originalPrice: 0,
-    savings: 0
+    monthly: 0
   })
 
   const [showTooltip, setShowTooltip] = useState<string | null>(null)
@@ -466,15 +464,11 @@ export default function QuoteCalculator() {
   const calculateTotals = useCallback(() => {
     let oneTime = 0
     let monthly = 0
-    let originalPrice = 0
-    let selectedServicesCount = 0
 
     // Project Discovery
     PROJECT_DISCOVERY.forEach(service => {
       if (quote.projectDiscovery[service.id]) {
         oneTime += service.price || 0
-        originalPrice += service.price || 0
-        selectedServicesCount++
       }
     })
 
@@ -494,10 +488,7 @@ export default function QuoteCalculator() {
 
     [...BASIC_PAGES, ...ADVANCED_PAGES].forEach(service => {
       if (quote.pages[service.id]) {
-        const price = getPagePrice(service)
-        oneTime += price
-        originalPrice += price * 1.2 // 20% markup for individual pricing
-        selectedServicesCount++
+        oneTime += getPagePrice(service)
       }
     })
 
@@ -505,8 +496,6 @@ export default function QuoteCalculator() {
     DESIGN_SERVICES.forEach(service => {
       if (quote.design[service.id]) {
         oneTime += service.price || 0
-        originalPrice += (service.price || 0) * 1.15 // 15% markup
-        selectedServicesCount++
       }
     })
 
@@ -514,18 +503,13 @@ export default function QuoteCalculator() {
     FUNCTIONALITY_FEATURES.forEach(service => {
       if (quote.functionality[service.id]) {
         oneTime += service.price || 0
-        originalPrice += (service.price || 0) * 1.1 // 10% markup
-        selectedServicesCount++
       }
     })
 
     // E-commerce
     ECOMMERCE_FEATURES.forEach(service => {
       if (quote.ecommerce[service.id]) {
-        const price = getPagePrice(service)
-        oneTime += price
-        originalPrice += price * 1.25 // 25% markup for e-commerce
-        selectedServicesCount++
+        oneTime += getPagePrice(service)
       }
     })
 
@@ -533,8 +517,6 @@ export default function QuoteCalculator() {
     SEO_SERVICES.forEach(service => {
       if (quote.seo[service.id]) {
         oneTime += service.price || 0
-        originalPrice += (service.price || 0) * 1.15
-        selectedServicesCount++
       }
     })
 
@@ -542,8 +524,6 @@ export default function QuoteCalculator() {
     HOSTING_SERVICES.forEach(service => {
       if (quote.hosting[service.id]) {
         oneTime += service.price || 0
-        originalPrice += (service.price || 0) * 1.1
-        selectedServicesCount++
       }
     })
 
@@ -553,20 +533,7 @@ export default function QuoteCalculator() {
       monthly += maintenanceService.price
     }
 
-    // Bundle discount calculation
-    let bundleDiscount = 0
-    if (selectedServicesCount >= 8) {
-      bundleDiscount = oneTime * 0.15 // 15% bundle discount
-    } else if (selectedServicesCount >= 5) {
-      bundleDiscount = oneTime * 0.1 // 10% bundle discount
-    } else if (selectedServicesCount >= 3) {
-      bundleDiscount = oneTime * 0.05 // 5% bundle discount
-    }
-
-    oneTime -= bundleDiscount
-    const savings = Math.max(0, originalPrice - oneTime)
-
-    setTotals({ oneTime, monthly, originalPrice, savings })
+    setTotals({ oneTime, monthly })
   }, [quote])
 
   useEffect(() => {
@@ -734,9 +701,9 @@ export default function QuoteCalculator() {
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {[
-                  { key: 'template', label: 'Template Based', desc: 'Fast & affordable', icon: '⚡', price: 'From R8,500' },
+                  { key: 'custom', label: 'Custom Code', desc: 'Unlimited possibilities', icon: '🚀', price: 'Please Contact' },
                   { key: 'wordpress', label: 'WordPress', desc: 'Flexible & manageable', icon: '🎨', price: 'From R15,000' },
-                  { key: 'custom', label: 'Custom Code', desc: 'Unlimited possibilities', icon: '🚀', price: 'From R25,000' }
+                  { key: 'template', label: 'Template Based', desc: 'Fast & affordable', icon: '⚡', price: 'From R3,500' }
                 ].map(({ key, label, desc, icon, price }) => (
                   <motion.button
                     key={key}
@@ -752,7 +719,7 @@ export default function QuoteCalculator() {
                     <div className="text-2xl mb-2">{icon}</div>
                     <div className="font-semibold">{label}</div>
                     <div className="text-sm text-gray-400">{desc}</div>
-                    <div className="text-blue-400 font-bold text-sm mt-2">{price}</div>
+                    <div className={`font-bold text-sm mt-2 ${key === 'custom' ? 'text-orange-400' : 'text-blue-400'}`}>{price}</div>
                   </motion.button>
                 ))}
               </div>
@@ -1240,25 +1207,6 @@ export default function QuoteCalculator() {
               </h3>
               
               <div className="space-y-4">
-                {totals.savings > 0 && (
-                  <motion.div 
-                    className="bg-green-500/20 border border-green-500/30 rounded-lg p-4"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm text-green-300">Bundle Savings</div>
-                      <div className="text-xl font-bold text-green-400">
-                        -R{totals.savings.toLocaleString()}
-                      </div>
-                    </div>
-                    <div className="text-xs text-green-300/70 mt-1">
-                      Was R{totals.originalPrice.toLocaleString()}
-                    </div>
-                  </motion.div>
-                )}
-
                 <div className="bg-white/10 rounded-lg p-4">
                   <div className="text-sm text-gray-300">Project Cost</div>
                   <div className="text-3xl font-bold text-white">
@@ -1292,7 +1240,13 @@ export default function QuoteCalculator() {
                       ...Object.keys(quote.hosting).filter(key => quote.hosting[key])
                     ]
                     
-                    const mailto = `mailto:niaexedev@gmail.com?subject=Project Meeting Request&body=Hi Liam,%0D%0A%0D%0AI'd like to schedule a meeting to discuss my project:%0D%0A%0D%0ADevelopment Type: ${quote.developmentType}%0D%0AProject Cost: R${totals.oneTime.toLocaleString()}%0D%0A${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month%0D%0A` : ''}%0D%0ASelected Services: ${selectedServices.join(', ')}%0D%0A%0D%0APlease get in touch to schedule a meeting.%0D%0A%0D%0AThanks!`
+                    const servicesList = selectedServices.length > 0 ? 
+                      selectedServices.map(service => `• ${service.replace(/([A-Z])/g, ' $1').trim()}`).join('%0D%0A') : 
+                      '• No additional services selected'
+                    
+                    const emailBody = `Hi Liam,%0D%0A%0D%0AI'm interested in discussing a website project with you.%0D%0A%0D%0A━━━ PROJECT DETAILS ━━━%0D%0A%0D%0A🏗️ Development Type:%0D%0A${quote.developmentType.charAt(0).toUpperCase() + quote.developmentType.slice(1)}%0D%0A%0D%0A💰 Estimated Investment:%0D%0A${quote.developmentType === 'custom' ? 'Custom pricing - please contact for quote' : `R${totals.oneTime.toLocaleString()} (one-time)`}%0D%0A${totals.monthly > 0 ? `R${totals.monthly.toLocaleString()}/month (ongoing)%0D%0A` : ''}%0D%0A🛠️ Selected Services:%0D%0A${servicesList}%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0APlease let me know when would be a good time to discuss this project further.%0D%0A%0D%0ABest regards`
+                    
+                    const mailto = `mailto:niaexedev@gmail.com?subject=🚀 Website Project Inquiry - ${quote.developmentType.charAt(0).toUpperCase() + quote.developmentType.slice(1)} Solution&body=${emailBody}`
                     window.location.href = mailto
                   }}
                 >
@@ -1314,17 +1268,24 @@ export default function QuoteCalculator() {
                       ...Object.keys(quote.hosting).filter(key => quote.hosting[key])
                     ]
                     
-                    const quoteText = `Website Quote Summary
-                    
-Development Type: ${quote.developmentType}
-Project Cost: R${totals.oneTime.toLocaleString()}
-${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month` : ''}
-${totals.savings > 0 ? `Total Savings: R${totals.savings.toLocaleString()}` : ''}
+                    const quoteText = `━━━ WEBSITE PROJECT QUOTE ━━━
 
-Selected Services:
-${selectedServices.map(service => `• ${service}`).join('\n')}
+Development Type: ${quote.developmentType.charAt(0).toUpperCase() + quote.developmentType.slice(1)}
 
-Generated: ${new Date().toLocaleDateString()}`
+💰 Investment:
+${quote.developmentType === 'custom' ? 'Custom pricing - please contact for quote' : `R${totals.oneTime.toLocaleString()} (one-time)`}
+${totals.monthly > 0 ? `R${totals.monthly.toLocaleString()}/month (ongoing maintenance)` : ''}
+
+🛠️ Selected Services:
+${selectedServices.length > 0 ? 
+  selectedServices.map(service => `• ${service.replace(/([A-Z])/g, ' $1').trim()}`).join('\n') : 
+  '• No additional services selected'
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generated: ${new Date().toLocaleDateString()}
+Contact: niaexedev@gmail.com`
                     
                     const blob = new Blob([quoteText], { type: 'text/plain' })
                     const url = URL.createObjectURL(blob)
@@ -1378,6 +1339,21 @@ Generated: ${new Date().toLocaleDateString()}`
           </div>
         </div>
       </div>
+
+      {/* Back to Top Button */}
+      <motion.button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-8 right-8 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white p-3 rounded-full shadow-lg z-50 transition-all"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </motion.button>
     </div>
   )
 }

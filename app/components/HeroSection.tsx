@@ -228,25 +228,70 @@ export default function HeroSection() {
 						initial={{ y: 50, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.8, delay: 2.8 }}
-						className="flex items-center gap-2 mt-4"
+						className="flex items-center justify-center mt-6"
 					>
-						<div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/10">
+						<motion.div 
+							className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full border border-green-400/30 backdrop-blur-sm"
+							whileHover={{ scale: 1.05 }}
+							transition={{ duration: 0.3 }}
+						>
 							<motion.div 
-								className="w-2 h-2 bg-green-400 rounded-full"
+								className="relative"
 								animate={{ 
-									opacity: [1, 0.5, 1],
-									scale: [1, 1.2, 1]
+									rotate: [0, 360]
 								}}
 								transition={{ 
-									duration: 2,
+									duration: 10,
+									repeat: Infinity,
+									ease: "linear"
+								}}
+							>
+								<div className="w-4 h-4 bg-green-400 rounded-full relative">
+									<motion.div 
+										className="absolute inset-0 bg-green-400 rounded-full"
+										animate={{ 
+											scale: [1, 1.5, 1],
+											opacity: [1, 0, 1]
+										}}
+										transition={{ 
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut"
+										}}
+									/>
+								</div>
+							</motion.div>
+							<div className="text-center">
+								<motion.div 
+									className="text-2xl font-bold text-green-400"
+									animate={{ 
+										scale: [1, 1.1, 1]
+									}}
+									transition={{ 
+										duration: 3,
+										repeat: Infinity,
+										ease: "easeInOut"
+									}}
+								>
+									4
+								</motion.div>
+								<div className="text-xs text-gray-300 font-medium">Active Projects</div>
+							</div>
+							<motion.div
+								animate={{ 
+									y: [0, -2, 0]
+								}}
+								transition={{ 
+									duration: 1.5,
 									repeat: Infinity,
 									ease: "easeInOut"
 								}}
-							/>
-							<span className="text-xs text-gray-300">
-								<span className="font-semibold text-green-400">4</span> Active Projects
-							</span>
-						</div>
+							>
+								<svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+									<path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+								</svg>
+							</motion.div>
+						</motion.div>
 					</motion.div>
 
 					<div className="flex gap-4 relative z-50">
