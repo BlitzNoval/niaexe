@@ -223,6 +223,32 @@ export default function HeroSection() {
 						</motion.div>
 					</div>
 
+					{/* Active Projects Counter */}
+					<motion.div
+						initial={{ y: 50, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						transition={{ duration: 0.8, delay: 2.8 }}
+						className="flex items-center gap-2 mt-4"
+					>
+						<div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/10">
+							<motion.div 
+								className="w-2 h-2 bg-green-400 rounded-full"
+								animate={{ 
+									opacity: [1, 0.5, 1],
+									scale: [1, 1.2, 1]
+								}}
+								transition={{ 
+									duration: 2,
+									repeat: Infinity,
+									ease: "easeInOut"
+								}}
+							/>
+							<span className="text-xs text-gray-300">
+								<span className="font-semibold text-green-400">4</span> Active Projects
+							</span>
+						</div>
+					</motion.div>
+
 					<div className="flex gap-4 relative z-50">
 						<motion.a 
 							href="https://github.com/BlitzNoval" 

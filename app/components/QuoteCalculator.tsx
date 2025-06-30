@@ -34,6 +34,7 @@ interface QuoteState {
   hosting: Record<string, boolean>
   industrySpecific: Record<string, boolean>
   maintenance: string
+  urgency: number // 1-5 scale
 }
 
 const PROJECT_DISCOVERY: ServiceItem[] = [
@@ -440,7 +441,8 @@ export default function QuoteCalculator() {
     integrations: {},
     hosting: {},
     industrySpecific: {},
-    maintenance: 'none'
+    maintenance: 'none',
+    urgency: 3
   })
 
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
@@ -457,7 +459,10 @@ export default function QuoteCalculator() {
 
   const [totals, setTotals] = useState({
     oneTime: 0,
-    monthly: 0
+    monthly: 0,
+    originalPrice: 0,
+    savings: 0,
+    timeline: '4-6 weeks'
   })
 
   const [showTooltip, setShowTooltip] = useState<string | null>(null)
@@ -465,11 +470,15 @@ export default function QuoteCalculator() {
   const calculateTotals = () => {
     let oneTime = 0
     let monthly = 0
+    let originalPrice = 0
+    let selectedServicesCount = 0
 
     // Project Discovery
     PROJECT_DISCOVERY.forEach(service => {
       if (quote.projectDiscovery[service.id]) {
         oneTime += service.price || 0
+        originalPrice += service.price || 0
+        selectedServicesCount++
       }
     })
 
@@ -489,7 +498,10 @@ export default function QuoteCalculator() {
 
     [...BASIC_PAGES, ...ADVANCED_PAGES].forEach(service => {
       if (quote.pages[service.id]) {
-        oneTime += getPagePrice(service)
+        const price = getPagePrice(service)
+        oneTime += price
+        originalPrice += price * 1.2 // 20% markup for individual pricing
+        selectedServicesCount++
       }
     })
 
@@ -497,6 +509,8 @@ export default function QuoteCalculator() {
     DESIGN_SERVICES.forEach(service => {
       if (quote.design[service.id]) {
         oneTime += service.price || 0
+        originalPrice += (service.price || 0) * 1.15 // 15% markup
+        selectedServicesCount++
       }
     })
 
@@ -504,13 +518,18 @@ export default function QuoteCalculator() {
     FUNCTIONALITY_FEATURES.forEach(service => {
       if (quote.functionality[service.id]) {
         oneTime += service.price || 0
+        originalPrice += (service.price || 0) * 1.1 // 10% markup
+        selectedServicesCount++
       }
     })
 
     // E-commerce
     ECOMMERCE_FEATURES.forEach(service => {
       if (quote.ecommerce[service.id]) {
-        oneTime += getPagePrice(service)
+        const price = getPagePrice(service)
+        oneTime += price
+        originalPrice += price * 1.25 // 25% markup for e-commerce
+        selectedServicesCount++
       }
     })
 
@@ -518,6 +537,8 @@ export default function QuoteCalculator() {
     SEO_SERVICES.forEach(service => {
       if (quote.seo[service.id]) {
         oneTime += service.price || 0
+        originalPrice += (service.price || 0) * 1.15
+        selectedServicesCount++
       }
     })
 
@@ -525,6 +546,8 @@ export default function QuoteCalculator() {
     HOSTING_SERVICES.forEach(service => {
       if (quote.hosting[service.id]) {
         oneTime += service.price || 0
+        originalPrice += (service.price || 0) * 1.1
+        selectedServicesCount++
       }
     })
 
@@ -534,7 +557,35 @@ export default function QuoteCalculator() {
       monthly += maintenanceService.price
     }
 
-    setTotals({ oneTime, monthly })
+    // Bundle discount calculation
+    let bundleDiscount = 0
+    if (selectedServicesCount >= 8) {
+      bundleDiscount = oneTime * 0.15 // 15% bundle discount
+    } else if (selectedServicesCount >= 5) {
+      bundleDiscount = oneTime * 0.1 // 10% bundle discount
+    } else if (selectedServicesCount >= 3) {
+      bundleDiscount = oneTime * 0.05 // 5% bundle discount
+    }
+
+    oneTime -= bundleDiscount
+    const savings = Math.max(0, originalPrice - oneTime)
+
+    // Timeline calculation based on urgency
+    const baseWeeks = quote.developmentType === 'template' ? 2 : quote.developmentType === 'wordpress' ? 4 : 6
+    const urgencyMultiplier = [1.5, 1.25, 1, 0.85, 0.7][quote.urgency - 1] // 1=slow, 5=rush
+    const adjustedWeeks = Math.ceil(baseWeeks * urgencyMultiplier)
+    
+    const timeline = adjustedWeeks <= 1 ? '1 week' : 
+                    adjustedWeeks <= 2 ? '1-2 weeks' :
+                    adjustedWeeks <= 4 ? `${adjustedWeeks} weeks` :
+                    `${adjustedWeeks} weeks`
+
+    // Rush job pricing
+    if (quote.urgency >= 4) {
+      oneTime *= 1.2 // 20% rush fee
+    }
+
+    setTotals({ oneTime, monthly, originalPrice, savings, timeline })
   }
 
   useEffect(() => {
@@ -1208,6 +1259,57 @@ export default function QuoteCalculator() {
                 )}
               </AnimatePresence>
             </motion.div>
+
+            {/* Project Urgency */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.9 }}
+              className="bg-white/5 backdrop-blur-md rounded-xl p-6 border border-white/10"
+            >
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                <span className="text-3xl">⏰</span>
+                Project Timeline
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium">Urgency Level</span>
+                  <span className="text-blue-400 font-bold">{totals.timeline}</span>
+                </div>
+                <div className="relative">
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    value={quote.urgency}
+                    onChange={(e) => setQuote(prev => ({ ...prev, urgency: parseInt(e.target.value) }))}
+                    className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                    style={{
+                      background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(quote.urgency - 1) * 25}%, rgba(255,255,255,0.2) ${(quote.urgency - 1) * 25}%, rgba(255,255,255,0.2) 100%)`
+                    }}
+                  />
+                  <div className="flex justify-between text-xs text-gray-400 mt-2">
+                    <span>Flexible</span>
+                    <span>Standard</span>
+                    <span>Priority</span>
+                    <span>Urgent</span>
+                    <span>Rush</span>
+                  </div>
+                </div>
+                {quote.urgency >= 4 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-orange-500/20 border border-orange-500/30 rounded-lg p-3"
+                  >
+                    <div className="flex items-center gap-2 text-orange-400 text-sm">
+                      <span>⚡</span>
+                      <span>Rush fee (+20%) applied for expedited delivery</span>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
           </div>
 
           {/* Quote Summary Sidebar */}
@@ -1215,7 +1317,7 @@ export default function QuoteCalculator() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="lg:sticky lg:top-8 space-y-6"
+            className="lg:sticky lg:top-4 space-y-6 h-fit"
           >
             <div className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 backdrop-blur-md rounded-xl p-6 border border-blue-400/30">
               <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -1224,6 +1326,25 @@ export default function QuoteCalculator() {
               </h3>
               
               <div className="space-y-4">
+                {totals.savings > 0 && (
+                  <motion.div 
+                    className="bg-green-500/20 border border-green-500/30 rounded-lg p-4"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-green-300">Bundle Savings</div>
+                      <div className="text-xl font-bold text-green-400">
+                        -R{totals.savings.toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="text-xs text-green-300/70 mt-1">
+                      Was R{totals.originalPrice.toLocaleString()}
+                    </div>
+                  </motion.div>
+                )}
+
                 <motion.div 
                   className="bg-white/10 rounded-lg p-4"
                   animate={{ scale: [1, 1.02, 1] }}
@@ -1233,6 +1354,7 @@ export default function QuoteCalculator() {
                   <div className="text-3xl font-bold text-white">
                     R{totals.oneTime.toLocaleString()}
                   </div>
+                  <div className="text-sm text-blue-400 mt-1">Timeline: {totals.timeline}</div>
                 </motion.div>
 
                 {totals.monthly > 0 && (
