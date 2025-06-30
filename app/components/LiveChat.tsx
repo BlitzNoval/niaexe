@@ -17,13 +17,13 @@ export default function LiveChat() {
     }
 
     // Tawk.to API
-    ;(window as any).Tawk_API = (window as any).Tawk_API || {}
-    ;(window as any).Tawk_LoadStart = new Date()
+    ;(window as unknown as { Tawk_API: unknown; Tawk_LoadStart: Date }).Tawk_API = (window as unknown as { Tawk_API: unknown }).Tawk_API || {}
+    ;(window as unknown as { Tawk_LoadStart: Date }).Tawk_LoadStart = new Date()
 
     // Customize chat widget
-    ;(window as any).Tawk_API.onLoad = function() {
+    ;(window as unknown as { Tawk_API: { onLoad: () => void; setAttributes: (attrs: Record<string, string>) => void } }).Tawk_API.onLoad = function() {
       // Customize the chat widget appearance
-      ;(window as any).Tawk_API.setAttributes({
+      ;(window as unknown as { Tawk_API: { setAttributes: (attrs: Record<string, string>) => void } }).Tawk_API.setAttributes({
         'name': 'Project Inquiry',
         'email': '',
         'hash': ''

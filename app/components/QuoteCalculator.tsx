@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 
@@ -467,7 +467,7 @@ export default function QuoteCalculator() {
 
   const [showTooltip, setShowTooltip] = useState<string | null>(null)
 
-  const calculateTotals = () => {
+  const calculateTotals = useCallback(() => {
     let oneTime = 0
     let monthly = 0
     let originalPrice = 0
@@ -586,11 +586,11 @@ export default function QuoteCalculator() {
     }
 
     setTotals({ oneTime, monthly, originalPrice, savings, timeline })
-  }
+  }, [quote])
 
   useEffect(() => {
     calculateTotals()
-  }, [quote])
+  }, [quote, calculateTotals])
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({
@@ -1408,7 +1408,7 @@ export default function QuoteCalculator() {
                         }),
                       })
                       alert('Meeting request sent! I\'ll be in touch soon.')
-                    } catch (error) {
+                    } catch {
                       // Fallback to mailto
                       const mailto = `mailto:niaexedev@gmail.com?subject=Project Meeting Request&body=Hi Liam,%0D%0A%0D%0AI'd like to schedule a meeting to discuss my project:%0D%0A%0D%0ADevelopment Type: ${quote.developmentType}%0D%0AProject Cost: R${totals.oneTime.toLocaleString()}%0D%0A${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month%0D%0A` : ''}%0D%0APlease get in touch to schedule a meeting.%0D%0A%0D%0AThanks!`
                       window.location.href = mailto
