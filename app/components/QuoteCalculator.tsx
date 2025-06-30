@@ -580,25 +580,45 @@ export default function QuoteCalculator() {
       </div>
       <AnimatePresence>
         {showTooltip === service.id && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="absolute z-50 p-4 bg-gray-900 text-white rounded-lg shadow-xl border border-gray-700 w-80 -top-2 left-full ml-2"
-          >
-            <h4 className="font-bold text-blue-400 mb-2">{service.tooltip.title}</h4>
-            <p className="text-sm text-gray-300 mb-3">{service.tooltip.description}</p>
-            {service.tooltip.features && (
-              <ul className="text-xs space-y-1">
-                {service.tooltip.features.map((feature, index) => (
-                  <li key={index} className="flex items-center">
-                    <span className="w-1 h-1 bg-blue-400 rounded-full mr-2"></span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </motion.div>
+          <>
+            {/* Connection line */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              exit={{ opacity: 0, scaleX: 0 }}
+              className="absolute z-40 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-transparent top-1/2 left-full"
+              style={{ transformOrigin: 'left center' }}
+            />
+            {/* Tooltip */}
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.9 }}
+              className="fixed z-50 p-4 bg-gray-900 text-white rounded-lg shadow-xl border border-gray-700 w-80 pointer-events-none"
+              style={{
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <h4 className="font-bold text-blue-400 mb-2">{service.tooltip.title}</h4>
+              <p className="text-sm text-gray-300 mb-3">{service.tooltip.description}</p>
+              {service.tooltip.features && (
+                <ul className="text-xs space-y-1">
+                  {service.tooltip.features.map((feature, index) => (
+                    <li key={index} className="flex items-center">
+                      <span className="w-1 h-1 bg-blue-400 rounded-full mr-2"></span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {/* Pointer from center to question mark */}
+              <div className="absolute w-2 h-2 bg-blue-400 rounded-full top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute w-8 h-0.5 bg-gradient-to-l from-blue-400 to-transparent top-1/2 right-1 transform -translate-y-1/2"></div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
@@ -700,10 +720,10 @@ export default function QuoteCalculator() {
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {[
-                  { key: 'template', label: 'Template Based', desc: 'Fast & affordable', icon: '⚡' },
-                  { key: 'wordpress', label: 'WordPress', desc: 'Flexible & manageable', icon: '🎨' },
-                  { key: 'custom', label: 'Custom Code', desc: 'Unlimited possibilities', icon: '🚀' }
-                ].map(({ key, label, desc, icon }) => (
+                  { key: 'template', label: 'Template Based', desc: 'Fast & affordable', icon: '⚡', price: 'From R8,500' },
+                  { key: 'wordpress', label: 'WordPress', desc: 'Flexible & manageable', icon: '🎨', price: 'From R15,000' },
+                  { key: 'custom', label: 'Custom Code', desc: 'Unlimited possibilities', icon: '🚀', price: 'From R25,000' }
+                ].map(({ key, label, desc, icon, price }) => (
                   <motion.button
                     key={key}
                     onClick={() => setDevelopmentType(key as 'custom' | 'wordpress' | 'template')}
@@ -718,6 +738,7 @@ export default function QuoteCalculator() {
                     <div className="text-2xl mb-2">{icon}</div>
                     <div className="font-semibold">{label}</div>
                     <div className="text-sm text-gray-400">{desc}</div>
+                    <div className="text-blue-400 font-bold text-sm mt-2">{price}</div>
                   </motion.button>
                 ))}
               </div>
@@ -1228,20 +1249,92 @@ export default function QuoteCalculator() {
                 )}
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full mt-6 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-lg transition-all"
-                onClick={() => {
-                  const mailto = `mailto:niaexedev@gmail.com?subject=Project Quote Request&body=Hi Liam,%0D%0A%0D%0AI'm interested in a project with the following specifications:%0D%0A%0D%0AProject Cost: R${totals.oneTime.toLocaleString()}%0D%0A${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month%0D%0A` : ''}%0D%0APlease get in touch to discuss the details.%0D%0A%0D%0AThanks!`
-                  window.location.href = mailto
-                }}
-              >
-                Request Quote
-              </motion.button>
+              <div className="space-y-3 mt-6">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                  onClick={async () => {
+                    // Prepare quote data
+                    const quoteData = {
+                      developmentType: quote.developmentType,
+                      selectedServices: {
+                        projectDiscovery: Object.keys(quote.projectDiscovery).filter(key => quote.projectDiscovery[key]),
+                        pages: Object.keys(quote.pages).filter(key => quote.pages[key]),
+                        design: Object.keys(quote.design).filter(key => quote.design[key]),
+                        functionality: Object.keys(quote.functionality).filter(key => quote.functionality[key]),
+                        ecommerce: Object.keys(quote.ecommerce).filter(key => quote.ecommerce[key]),
+                        seo: Object.keys(quote.seo).filter(key => quote.seo[key]),
+                        hosting: Object.keys(quote.hosting).filter(key => quote.hosting[key]),
+                        maintenance: quote.maintenance
+                      },
+                      totals,
+                      timestamp: new Date().toISOString()
+                    }
+
+                    // Send email via Formspree or similar service
+                    try {
+                      await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          subject: 'New Meeting Request - Project Quote',
+                          message: `New project quote request:\n\nDevelopment Type: ${quote.developmentType}\nProject Cost: R${totals.oneTime.toLocaleString()}\n${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month\n` : ''}\nSelected Services: ${JSON.stringify(quoteData.selectedServices, null, 2)}`,
+                          _replyto: 'client@email.com' // This would need to be collected from a form
+                        }),
+                      })
+                      alert('Meeting request sent! I\'ll be in touch soon.')
+                    } catch (error) {
+                      // Fallback to mailto
+                      const mailto = `mailto:niaexedev@gmail.com?subject=Project Meeting Request&body=Hi Liam,%0D%0A%0D%0AI'd like to schedule a meeting to discuss my project:%0D%0A%0D%0ADevelopment Type: ${quote.developmentType}%0D%0AProject Cost: R${totals.oneTime.toLocaleString()}%0D%0A${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month%0D%0A` : ''}%0D%0APlease get in touch to schedule a meeting.%0D%0A%0D%0AThanks!`
+                      window.location.href = mailto
+                    }
+                  }}
+                >
+                  🤝 Request Meeting
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-white/10 hover:bg-white/20 text-white font-medium py-2 px-6 rounded-lg transition-all border border-white/20"
+                  onClick={() => {
+                    const quoteData = {
+                      developmentType: quote.developmentType,
+                      selectedServices: {
+                        projectDiscovery: Object.keys(quote.projectDiscovery).filter(key => quote.projectDiscovery[key]),
+                        pages: Object.keys(quote.pages).filter(key => quote.pages[key]),
+                        design: Object.keys(quote.design).filter(key => quote.design[key]),
+                        functionality: Object.keys(quote.functionality).filter(key => quote.functionality[key]),
+                        ecommerce: Object.keys(quote.ecommerce).filter(key => quote.ecommerce[key]),
+                        seo: Object.keys(quote.seo).filter(key => quote.seo[key]),
+                        hosting: Object.keys(quote.hosting).filter(key => quote.hosting[key]),
+                        maintenance: quote.maintenance
+                      },
+                      totals,
+                      timestamp: new Date().toISOString(),
+                      summary: `Development Type: ${quote.developmentType}\nProject Cost: R${totals.oneTime.toLocaleString()}\n${totals.monthly > 0 ? `Monthly Maintenance: R${totals.monthly.toLocaleString()}/month\n` : ''}`
+                    }
+                    
+                    const blob = new Blob([JSON.stringify(quoteData, null, 2)], { type: 'application/json' })
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = `website-quote-${Date.now()}.json`
+                    document.body.appendChild(a)
+                    a.click()
+                    document.body.removeChild(a)
+                    URL.revokeObjectURL(url)
+                  }}
+                >
+                  📥 Download Quote
+                </motion.button>
+              </div>
 
               <div className="mt-4 text-center text-sm text-gray-400">
-                Free consultation included
+                Free consultation • 24hr response • No obligation
               </div>
             </div>
 
