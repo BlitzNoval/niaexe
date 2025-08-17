@@ -1,44 +1,46 @@
 export default function HeroSection() {
 	return (
-		<section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-32">
-			<div className="max-w-6xl">
-				<h1 className="heading-xl text-balance mb-8">
-					Liam Moodley
-				</h1>
-				
-				<div className="space-y-4 mb-16">
-					<p className="body-lg max-w-2xl">
-						Interactive Web Developer & UI/UX Designer
-					</p>
-					<p className="body-md text-gray-600 max-w-xl">
-						Coding To Connect. Designing for Humans.
-					</p>
+		<section className="min-h-screen flex flex-col justify-center items-center px-6 md:px-12 lg:px-24 py-32 text-center">
+			<div className="max-w-5xl mx-auto space-y-12">
+				<div className="space-y-8">
+					<h1 className="heading-xl text-balance">
+						Liam Moodley
+					</h1>
+					
+					<div className="space-y-6">
+						<p className="body-lg max-w-3xl mx-auto">
+							Interactive Web Developer & UI/UX Designer
+						</p>
+						<p className="body-md text-gray-600 max-w-2xl mx-auto">
+							Coding To Connect. Designing for Humans.
+						</p>
+					</div>
 				</div>
 
-				<div className="flex flex-col sm:flex-row gap-6 mb-24">
+				<div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8">
 					<a 
 						href="mailto:niaexedev@gmail.com"
-						className="inline-flex items-center gap-3 text-black hover:text-gray-600 transition-colors body-md"
+						className="inline-flex items-center gap-3 text-black hover:text-gray-600 transition-colors body-md bg-gray-50 px-6 py-3 rounded-full hover:bg-gray-100"
 					>
 						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
 							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
 							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 						</svg>
-						niaexedev@gmail.com
+						Get in Touch
 					</a>
 
-					<div className="flex items-center gap-3 text-black">
-						<div className="w-2 h-2 bg-green-500 rounded-full" />
+					<div className="flex items-center gap-3 text-gray-700">
+						<div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
 						<span className="body-md">4 Active Projects</span>
 					</div>
 				</div>
 
-				<div className="flex gap-8">
+				<div className="flex justify-center gap-8 pt-8">
 					<a 
 						href="https://github.com/BlitzNoval" 
 						target="_blank" 
 						rel="noopener noreferrer" 
-						className="text-black hover:text-gray-600 transition-colors"
+						className="text-gray-600 hover:text-black transition-colors p-3 hover:bg-gray-50 rounded-full"
 						aria-label="GitHub"
 					>
 						<svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -49,7 +51,7 @@ export default function HeroSection() {
 						href="https://www.linkedin.com/in/liammoodley/" 
 						target="_blank" 
 						rel="noopener noreferrer" 
-						className="text-black hover:text-gray-600 transition-colors"
+						className="text-gray-600 hover:text-black transition-colors p-3 hover:bg-gray-50 rounded-full"
 						aria-label="LinkedIn"
 					>
 						<svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -60,7 +62,7 @@ export default function HeroSection() {
 						href="https://www.figma.com/@liamjm" 
 						target="_blank" 
 						rel="noopener noreferrer" 
-						className="text-black hover:text-gray-600 transition-colors"
+						className="text-gray-600 hover:text-black transition-colors p-3 hover:bg-gray-50 rounded-full"
 						aria-label="Figma"
 					>
 						<svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -71,7 +73,7 @@ export default function HeroSection() {
 						href="https://ljmoodley03.wixsite.com/liam-j-m-1/blog" 
 						target="_blank" 
 						rel="noopener noreferrer" 
-						className="text-black hover:text-gray-600 transition-colors"
+						className="text-gray-600 hover:text-black transition-colors p-3 hover:bg-gray-50 rounded-full"
 						aria-label="Blog"
 					>
 						<svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

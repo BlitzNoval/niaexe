@@ -39,35 +39,51 @@
 	background: #333333;
 }
 
-/* Typography hierarchy */
+/* Typography hierarchy with improved design */
 .heading-xl {
-	font-size: clamp(3rem, 8vw, 8rem);
-	font-weight: 800;
-	line-height: 0.9;
-	letter-spacing: -0.02em;
+	font-size: clamp(3.5rem, 9vw, 9rem);
+	font-weight: 700;
+	line-height: 0.95;
+	letter-spacing: -0.025em;
+	text-align: center;
 }
 
 .heading-lg {
-	font-size: clamp(2rem, 5vw, 4rem);
-	font-weight: 700;
-	line-height: 1;
-	letter-spacing: -0.01em;
+	font-size: clamp(2.5rem, 6vw, 5rem);
+	font-weight: 600;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	text-align: center;
 }
 
 .heading-md {
-	font-size: clamp(1.5rem, 3vw, 2.5rem);
-	font-weight: 600;
-	line-height: 1.1;
+	font-size: clamp(1.75rem, 4vw, 3rem);
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: -0.01em;
 }
 
 .body-lg {
-	font-size: clamp(1.125rem, 2vw, 1.5rem);
+	font-size: clamp(1.25rem, 2.5vw, 1.75rem);
 	font-weight: 400;
-	line-height: 1.5;
+	line-height: 1.6;
+	text-align: center;
 }
 
 .body-md {
-	font-size: 1rem;
+	font-size: clamp(1rem, 1.5vw, 1.25rem);
 	font-weight: 400;
-	line-height: 1.6;
+	line-height: 1.7;
+}
+
+/* Clean background patterns */
+.gradient-mesh {
+	background: 
+		radial-gradient(circle at 25% 25%, rgba(0,0,0,0.02) 0%, transparent 50%),
+		radial-gradient(circle at 75% 75%, rgba(0,0,0,0.02) 0%, transparent 50%);
+}
+
+.dot-pattern {
+	background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+	background-size: 24px 24px;
 }
