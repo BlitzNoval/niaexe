@@ -1,9 +1,5 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import ParallaxWrapper from './ParallaxWrapper';
 
 const projects = [
 	{
@@ -61,103 +57,69 @@ const projects = [
 
 export default function ProjectsSection() {
 	return (
-		<ParallaxWrapper speed={0.2}>
-			<section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">
-				<motion.h2
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.6 }}
-					className="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center text-foreground"
-				>
-					Featured Works
-				</motion.h2>
+		<section className="px-6 md:px-12 lg:px-24 py-24">
+			<div className="max-w-6xl">
+				<h2 className="heading-lg mb-24">
+					Selected Projects
+				</h2>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div className="space-y-32">
 					{projects.map((project, index) => (
-						<motion.div
-							key={project.id}
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.6, delay: index * 0.1 }}
-							whileHover={{ 
-								y: -12, 
-								scale: 1.03,
-								transition: { duration: 0.2, ease: "easeOut" }
-							}}
-							className="group bg-card border border-gray-800 dark:border-gray-700 light:border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-200 ease-out"
-						>
-							<motion.div
-								animate={{ 
-									y: [0, -3, 0],
-									rotate: [0, 0.3, -0.3, 0]
-								}}
-								whileHover={{ 
-									y: -3,
-									rotate: 0
-								}}
-								transition={{ 
-									duration: 4 + index * 0.5,
-									repeat: Infinity,
-									delay: index * 1.5,
-									ease: "easeInOut"
-								}}
-								className="w-full h-full"
-							>
-							{/* Image Container */}
-							<div className="relative aspect-video overflow-hidden">
-								<Image 
-									src={project.image} 
-									alt={project.title} 
-									fill 
-									className="object-cover transition-transform duration-150 group-hover:scale-102" 
-								/>
-								<div className="absolute top-3 right-3">
-									<span className="text-xs px-2 py-1 bg-black/80 text-white rounded-full font-medium">
-										{project.client}
-									</span>
-								</div>
-							</div>
-
-							{/* Content Container */}
-							<div className="p-6 space-y-4">
-								<p className="text-card-foreground text-sm leading-relaxed">{project.description}</p>
-								
-								{project.note && (
-									<p className="text-yellow-500 dark:text-yellow-400 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/20 px-2 py-1 rounded-full inline-block">
-										{project.note}
-									</p>
-								)}
-
-								<div className="flex flex-wrap gap-2">
-									<span className="text-xs px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">
-										{project.type}
-									</span>
-									<span className="text-xs px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full font-medium">
-										{project.tech}
-									</span>
+						<div key={project.id} className="group">
+							<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+								<div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+									<div className="aspect-[4/3] relative bg-gray-100 overflow-hidden">
+										<Image 
+											src={project.image} 
+											alt={project.title} 
+											fill 
+											className="object-cover"
+										/>
+									</div>
 								</div>
 
-								<div className="pt-2">
+								<div className={`space-y-8 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+									<div className="space-y-4">
+										<h3 className="heading-md">
+											{project.title}
+										</h3>
+										<p className="body-lg text-gray-600 max-w-lg">
+											{project.description}
+										</p>
+									</div>
+
+									<div className="flex flex-wrap gap-4">
+										<span className="body-md text-black border border-black px-4 py-2">
+											{project.type}
+										</span>
+										<span className="body-md text-gray-600">
+											{project.tech}
+										</span>
+									</div>
+
+									{project.note && (
+										<div className="body-md text-black bg-yellow-100 px-4 py-2 inline-block">
+											{project.note}
+										</div>
+									)}
+
 									<Link 
 										href={project.link} 
 										target="_blank" 
 										rel="noopener noreferrer" 
-										className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-all duration-100 group-hover:scale-102"
+										className="inline-flex items-center gap-3 text-black hover:text-gray-600 transition-colors body-md group-hover:gap-4 transition-all"
 									>
-										<span>Visit Website</span>
-										<svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										Visit Website
+										<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
 										</svg>
 									</Link>
 								</div>
 							</div>
-							</motion.div>
-						</motion.div>
+						</div>
 					))}
 				</div>
-			</section>
-		</ParallaxWrapper>
+			</div>
+		</section>
 	);
 }
