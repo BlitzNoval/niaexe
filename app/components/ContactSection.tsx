@@ -5,10 +5,10 @@ export default function ContactSection() {
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
 					<div className="space-y-8">
 						<h2 className="heading-lg">
-							Let's Work Together
+							Let&apos;s Work Together
 						</h2>
 						<p className="body-lg text-gray-600 max-w-lg">
-							Have a project in mind? I'd love to hear about it and help bring your ideas to life.
+							Have a project in mind? I&apos;d love to hear about it and help bring your ideas to life.
 						</p>
 					</div>
 

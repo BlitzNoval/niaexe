@@ -1,14 +1,3 @@
-const skills = [
-	{ name: 'React', category: 'Frontend' },
-	{ name: 'Next.js', category: 'Frontend' },
-	{ name: 'TypeScript', category: 'Language' },
-	{ name: 'Node.js', category: 'Backend' },
-	{ name: 'UI/UX Design', category: 'Design' },
-	{ name: 'Figma', category: 'Design' },
-	{ name: 'WordPress', category: 'CMS' },
-	{ name: 'D3.js', category: 'Visualization' },
-];
-
 const skillCategories = [
 	{
 		category: 'Frontend',
@@ -37,13 +26,13 @@ export default function SkillsSection() {
 				</h2>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
-					{skillCategories.map((category, index) => (
+					{skillCategories.map((category) => (
 						<div key={category.category} className="space-y-8">
 							<h3 className="heading-md text-white">
 								{category.category}
 							</h3>
 							<div className="space-y-4">
-								{category.skills.map((skill, skillIndex) => (
+								{category.skills.map((skill) => (
 									<div key={skill} className="body-lg text-gray-300">
 										{skill}
 									</div>
